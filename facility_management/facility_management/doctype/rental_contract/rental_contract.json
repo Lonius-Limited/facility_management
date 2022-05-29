@@ -1,0 +1,248 @@
+{
+ "allow_rename": 1,
+ "creation": "2020-02-18 19:05:06.445297",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tenant",
+  "property",
+  "rent_paid_by_employer",
+  "apply_invoices_now",
+  "column_break_5",
+  "title",
+  "posting_date",
+  "property_group",
+  "status",
+  "amended_from",
+  "section_break_5",
+  "contract_start_date",
+  "contract_end_date",
+  "start_invoice_date",
+  "column_break_8",
+  "cancellation_date",
+  "reason_for_cancellation",
+  "advance_paid_amount",
+  "deposit_amount",
+  "section_break_9",
+  "rental_frequency",
+  "rental_amount",
+  "column_break_16",
+  "ewa_limit",
+  "is_ewa_inclusive",
+  "section_break_20",
+  "items",
+  "section_break_11",
+  "terms_and_conditions_template",
+  "terms_and_conditions"
+ ],
+ "fields": [
+  {
+   "fieldname": "tenant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tenant",
+   "options": "Tenant Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rent_paid_by_employer",
+   "fieldtype": "Check",
+   "label": "Rent Paid By Employer"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "contract_start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Contract Start Date",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Contract End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_invoice_date",
+   "fieldtype": "Date",
+   "label": "Start Invoice Date"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "advance_paid_amount",
+   "fieldtype": "Currency",
+   "label": "Advance Paid Amount"
+  },
+  {
+   "fieldname": "deposit_amount",
+   "fieldtype": "Currency",
+   "label": "Deposit Amount"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "property.rental_frequency",
+   "fieldname": "rental_frequency",
+   "fieldtype": "Select",
+   "label": "Rental Frequency",
+   "options": "Monthly\nQuarterly\nHalf-yearly\nYearly",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "property.rental_rate",
+   "fieldname": "rental_amount",
+   "fieldtype": "Currency",
+   "label": "Rental Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ewa_limit",
+   "fieldtype": "Currency",
+   "label": "EWA Limit"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_ewa_inclusive",
+   "fieldtype": "Check",
+   "label": "Is EWA Inclusive"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "terms_and_conditions_template",
+   "fieldtype": "Link",
+   "label": "Terms and Conditions Template",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "terms_and_conditions_template.terms",
+   "fieldname": "terms_and_conditions",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Conditions"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break",
+   "label": "Invoice Details"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "options": "Rental Contract Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Rental Contract",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "property.property_group",
+   "fieldname": "property_group",
+   "fieldtype": "Link",
+   "label": "Real Estate Property",
+   "options": "Real Estate Property",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nDraft\nActive\nExpired\nCancelled",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "apply_invoices_now",
+   "fieldtype": "Check",
+   "label": "Apply Invoices Now"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "cancellation_date",
+   "fieldtype": "Date",
+   "label": "Cancellation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_for_cancellation",
+   "fieldtype": "Data",
+   "label": "Reason for Cancellation",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.title",
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-10-21 17:47:37.673917",
+ "modified_by": "pangit413@gmail.com",
+ "module": "Facility Management",
+ "name": "Rental Contract",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "title",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "title",
+ "track_changes": 1
+}

@@ -1,0 +1,267 @@
+{
+ "allow_rename": 1,
+ "autoname": "format:{property_group}-{property_no}",
+ "creation": "2020-02-17 20:23:15.315787",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "property_group",
+  "property_no",
+  "property_floor",
+  "column_break_4",
+  "title",
+  "property_type",
+  "property_status",
+  "landlord",
+  "sb_rental",
+  "rental_status",
+  "rental_frequency",
+  "cb_rental",
+  "rental_rate",
+  "section_break_9",
+  "furnished",
+  "property_size",
+  "air_conditioning",
+  "column_break_11",
+  "bedroom",
+  "bathroom",
+  "section_break_8",
+  "municipality_no",
+  "eletric_meter_no",
+  "water_meter_no",
+  "column_break_20",
+  "parking",
+  "pets_allowed",
+  "other_facilities_section",
+  "property_item_facilities",
+  "insurance_sb",
+  "insured",
+  "insurance_company",
+  "insurance_type",
+  "insurance_start_date",
+  "insurance_end_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PU-.#####"
+  },
+  {
+   "fieldname": "property_group",
+   "fieldtype": "Link",
+   "label": "Real Estate Property",
+   "options": "Real Estate Property",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_no",
+   "fieldtype": "Data",
+   "label": "Property No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_floor",
+   "fieldtype": "Data",
+   "label": "Property Floor"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "property_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Property Type",
+   "options": "Apartment\nVilla\nShop\nOffice"
+  },
+  {
+   "fieldname": "property_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Property Status",
+   "options": "Rental\nSale"
+  },
+  {
+   "depends_on": "eval:doc.property_status == 'Rental'",
+   "fieldname": "sb_rental",
+   "fieldtype": "Section Break",
+   "label": "Rental Details"
+  },
+  {
+   "default": "Vacant",
+   "fieldname": "rental_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Rental Status",
+   "options": "\nRented\nVacant"
+  },
+  {
+   "fieldname": "rental_frequency",
+   "fieldtype": "Select",
+   "label": "Rental Frequency",
+   "options": "Monthly\nQuarterly\nHalf-yearly\nYearly"
+  },
+  {
+   "fieldname": "cb_rental",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rental_rate",
+   "fieldtype": "Currency",
+   "label": "Rental Rate"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "furnished",
+   "fieldtype": "Select",
+   "label": "Furnished",
+   "options": "Fully Furnished\nSemi Furnished\nUnfurnished"
+  },
+  {
+   "fieldname": "property_size",
+   "fieldtype": "Float",
+   "label": "Property Size"
+  },
+  {
+   "fieldname": "air_conditioning",
+   "fieldtype": "Select",
+   "label": "Air-conditioning",
+   "options": "Central\nSplit\nWindow\nNo A/C"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bedroom",
+   "fieldtype": "Int",
+   "label": "Bedroom"
+  },
+  {
+   "fieldname": "bathroom",
+   "fieldtype": "Int",
+   "label": "Bathroom"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "municipality_no",
+   "fieldtype": "Data",
+   "label": "Municipality No"
+  },
+  {
+   "fieldname": "eletric_meter_no",
+   "fieldtype": "Data",
+   "label": "Electric Meter No"
+  },
+  {
+   "fieldname": "water_meter_no",
+   "fieldtype": "Data",
+   "label": "Water Meter No"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "parking",
+   "fieldtype": "Select",
+   "label": "Parking",
+   "options": "Dedicated\nGeneral\nNo Parking"
+  },
+  {
+   "fieldname": "pets_allowed",
+   "fieldtype": "Select",
+   "label": "Pets Allowed",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "other_facilities_section",
+   "fieldtype": "Section Break",
+   "label": "Other Facilities"
+  },
+  {
+   "fieldname": "property_item_facilities",
+   "fieldtype": "Table",
+   "options": "Property Item Facility"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "insurance_sb",
+   "fieldtype": "Section Break",
+   "label": "Insurance Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "insured",
+   "fieldtype": "Check",
+   "label": "Insured"
+  },
+  {
+   "fieldname": "insurance_company",
+   "fieldtype": "Data",
+   "label": "Insurance Company"
+  },
+  {
+   "fieldname": "insurance_type",
+   "fieldtype": "Data",
+   "label": "Insurance Type"
+  },
+  {
+   "fieldname": "insurance_start_date",
+   "fieldtype": "Date",
+   "label": "Insurance Start Date"
+  },
+  {
+   "fieldname": "insurance_end_date",
+   "fieldtype": "Date",
+   "label": "Insurance End Date"
+  },
+  {
+   "depends_on": "eval:!doc.title",
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title"
+  },
+  {
+   "fieldname": "landlord",
+   "fieldtype": "Link",
+   "label": "Landlord",
+   "options": "Landlord"
+  }
+ ],
+ "modified": "2020-12-16 17:40:44.145570",
+ "modified_by": "Administrator",
+ "module": "Facility Management",
+ "name": "Property",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "title",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "title",
+ "track_changes": 1
+}

@@ -1,0 +1,245 @@
+{
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2020-02-17 20:49:10.137856",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "first_name",
+  "last_name",
+  "tenant_name",
+  "column_break_4",
+  "customer",
+  "tenant_type",
+  "gender",
+  "dob",
+  "contact_details_section",
+  "cr_no",
+  "cpr",
+  "cpr_expiry_date",
+  "passport_no",
+  "passport_expiry_date",
+  "column_break_13",
+  "emergency_contact_name",
+  "relationship",
+  "mobile_no",
+  "mobile_no_2",
+  "office_no",
+  "email",
+  "employer_details_section",
+  "employer_name",
+  "flat_villa_no",
+  "bldg_name",
+  "road_no",
+  "road_name",
+  "column_break_21",
+  "block_no",
+  "area",
+  "city",
+  "country"
+ ],
+ "fields": [
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "tenant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tenant Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "default": "Individual",
+   "fieldname": "tenant_type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Individual\nCompany",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "label": "Gender",
+   "options": "Gender"
+  },
+  {
+   "fieldname": "dob",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employer_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employer Details"
+  },
+  {
+   "fieldname": "employer_name",
+   "fieldtype": "Data",
+   "label": "Employer Name"
+  },
+  {
+   "fieldname": "flat_villa_no",
+   "fieldtype": "Data",
+   "label": "Flat/Villa No"
+  },
+  {
+   "fieldname": "bldg_name",
+   "fieldtype": "Data",
+   "label": "Bldg Name"
+  },
+  {
+   "fieldname": "road_no",
+   "fieldtype": "Data",
+   "label": "Road No"
+  },
+  {
+   "fieldname": "road_name",
+   "fieldtype": "Data",
+   "label": "Road Name"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "block_no",
+   "fieldtype": "Data",
+   "label": "Block No"
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Area"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "contact_details_section",
+   "fieldtype": "Section Break",
+   "label": "Contact Details"
+  },
+  {
+   "depends_on": "eval:doc.tenant_type==='Individual'",
+   "fieldname": "cpr",
+   "fieldtype": "Data",
+   "label": "CPR"
+  },
+  {
+   "depends_on": "eval:doc.tenant_type==='Individual'",
+   "fieldname": "cpr_expiry_date",
+   "fieldtype": "Date",
+   "label": "CPR Expiry Date"
+  },
+  {
+   "fieldname": "passport_no",
+   "fieldtype": "Data",
+   "label": "Passport No"
+  },
+  {
+   "fieldname": "passport_expiry_date",
+   "fieldtype": "Date",
+   "label": "Passport Expiry Date"
+  },
+  {
+   "fieldname": "emergency_contact_name",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Name"
+  },
+  {
+   "fieldname": "relationship",
+   "fieldtype": "Data",
+   "label": "Relationship"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "mobile_no_2",
+   "fieldtype": "Data",
+   "label": "Mobile Number 2"
+  },
+  {
+   "fieldname": "office_no",
+   "fieldtype": "Data",
+   "label": "Office Number"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  },
+  {
+   "depends_on": "eval:doc.tenant_type == \"Company\"",
+   "fieldname": "cr_no",
+   "fieldtype": "Data",
+   "label": "CR No"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "TEN-"
+  }
+ ],
+ "modified": "2020-12-14 14:46:06.578162",
+ "modified_by": "Administrator",
+ "module": "Facility Management",
+ "name": "Tenant Master",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "tenant_name,mobile_no,mobile_no_2,email,cpr",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "tenant_name",
+ "track_changes": 1
+}
