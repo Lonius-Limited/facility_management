@@ -3,7 +3,7 @@ from functools import reduce
 import frappe
 from frappe.utils.data import nowdate
 
-
+from frappe.search.full_text_search import FullTextSearch
 @frappe.whitelist()
 def get_rental_listing():
     def data_occupied(rental):
