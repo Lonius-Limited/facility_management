@@ -3,7 +3,7 @@ from functools import reduce
 import frappe
 from frappe.utils.data import nowdate
 
-from frappe.search.full_text_search import FullTextSearch
+
 @frappe.whitelist()
 def get_rental_listing():
     def data_occupied(rental):
@@ -73,7 +73,7 @@ def _get_rented_properties():
             frappe.db.sql(
                 """
                     SELECT property 
-                    FROM `tabTenant Renting`
+                    FROM `tabRental Contract`
                     WHERE %s BETWEEN contract_start_date AND contract_end_date
                 """,
                 nowdate(),
@@ -81,3 +81,49 @@ def _get_rented_properties():
             ),
         )
     )
+@frappe.whitelist(allow_guest=True)    
+def get_vacant_properties(real_estate_property=None):
+    filters = dict(property_status = 'Rental',rental_status=['!=','Rented'])
+    if real_estate_property:
+        filters["property_group"] = real_estate_property
+
+    fields = ['name', 'modified', 'property_group', 'property_no', 'property_floor', 'title', 'property_type', 'property_status', 'landlord', 'rental_status', 'rental_frequency', 'rental_rate', 'furnished', 'property_size', 'air_conditioning', 'bedroom', 'bathroom', 'municipality_no', 'eletric_meter_no', 'water_meter_no', 'parking', 'pets_allowed',"free_wifi", 'house_image']
+    return frappe.get_all("Property", filters=filters, fields=fields)  or []
+
+@frappe.whitelist(allow_guest=True)
+def get_all_regions():
+    locations = [x for x in frappe.get_all("Real Estate Property",filters=dict(location=["!=",""]),fields=["name","location"])]
+    def _append_actual(obj):
+        # print(obj)
+        location = frappe.get_all("Location",filters=dict(name=obj.get("location")),fields=["latitude","longitude"])
+        vacants = get_vacant_properties(real_estate_property=obj.get("name"))
+        obj["actual"] = location
+        obj["vacants"] = vacants
+        return obj
+    list(map(lambda x: _append_actual(x),locations))
+
+    return locations
+@frappe.whitelist(allow_guest=True)    
+def get_vacant_properties_with_locations(real_estate_property=None):
+    filters = dict(property_status = 'Rental',rental_status=['!=','Rented'])
+    if real_estate_property:
+        filters["property_group"] = real_estate_property
+    fields = ['name', 'modified', 'property_group', 'property_no', 'property_floor', 'title', 'property_type', 'property_status', 'landlord', 'rental_status', 'rental_frequency', 'rental_rate', 'furnished', 'property_size', 'air_conditioning', 'bedroom', 'bathroom', 'municipality_no', 'eletric_meter_no', 'water_meter_no', 'parking', 'pets_allowed',"free_wifi", 'house_image']
+    vacants = frappe.get_all("Property", filters=filters, fields=fields)  or []
+    for vacant in vacants:
+        location = frappe.get_value("Real Estate Property", vacant.get("property_group"),'location') or ""
+        location_details = []
+        if location: 
+            location_details = frappe.get_all("Location",filters=dict(name=location),fields=["latitude","longitude"]) 
+        vacant["location"] = location
+        vacant["actual"] = location_details
+        vacant["property_photographs"] = get_property_photographs(vacant.get("name"))
+    return [x for x in vacants if x.get("actual")]
+def get_property_photographs(property_name):
+    photos = frappe.get_all("Property Photos", filters= dict(parent=property_name),fields=["photo","description"])
+
+    if not photos: return []
+ 
+    URL = frappe.utils.get_url()
+
+    return list(map(lambda x: dict(description=x.get("description") or "",photo='{}/{}'.format(URL,str(x.get("photo")))), photos))
