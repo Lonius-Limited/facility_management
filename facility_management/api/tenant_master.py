@@ -28,8 +28,8 @@ def _get_customer(user):
 
 
 def _get_tenant(customer):
-    tenant = frappe.get_all("Tenant Master", filters={"customer": customer})
+    tenant = frappe.db.get_all("Tenant Master", filters={"customer": customer})
     if tenant:
-        return frappe.get_doc("Tenant Master", first(tenant).get("name"))
+        return frappe.db.get_doc("Tenant Master", first(tenant).get("name"))
     else:
         frappe.throw(_("Tenant is not found"))

@@ -1,12 +1,22 @@
 {
- "autoname": "field:landlord_name",
+ "actions": [],
+ "allow_guest_to_view": 1,
+ "autoname": "LL.#####",
  "creation": "2020-12-16 17:39:01.332715",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "landlord_name",
-  "cpr"
+  "cpr",
+  "email",
+  "phone",
+  "id_number",
+  "paybill_number",
+  "cost_center",
+  "route",
+  "naming_series",
+  "disable"
  ],
  "fields": [
   {
@@ -20,10 +30,63 @@
   {
    "fieldname": "cpr",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "CPR"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Format: 07XXXXXXXX/01XXXXXXXX",
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "length": 10,
+   "unique": 1
+  },
+  {
+   "fieldname": "id_number",
+   "fieldtype": "Data",
+   "label": "ID Number",
+   "reqd": 1
+  },
+  {
+   "description": "To be used to integrate automated payment postings when tenants make payments.",
+   "fieldname": "paybill_number",
+   "fieldtype": "Data",
+   "label": "Paybill Number"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "route"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "naming_series"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
   }
  ],
- "modified": "2020-12-16 17:39:34.429304",
+ "has_web_view": 1,
+ "links": [],
+ "modified": "2022-06-28 15:53:09.658063",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Landlord",
@@ -42,6 +105,7 @@
    "write": 1
   }
  ],
+ "route": "landlord",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

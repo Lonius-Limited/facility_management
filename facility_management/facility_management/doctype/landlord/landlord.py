@@ -3,8 +3,9 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-# import frappe
-from frappe.model.document import Document
+import frappe
+from frappe.website.website_generator import WebsiteGenerator
+from frappe import _
 
-class Landlord(Document):
+class Landlord(WebsiteGenerator):
 	pass
