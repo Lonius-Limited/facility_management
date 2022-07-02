@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_rename": 1,
  "creation": "2020-02-18 19:05:06.445297",
  "doctype": "DocType",
@@ -6,13 +7,15 @@
  "engine": "InnoDB",
  "field_order": [
   "tenant",
+  "tenant_name",
   "property",
-  "rent_paid_by_employer",
-  "apply_invoices_now",
+  "property_group",
+  "cost_center",
   "column_break_5",
   "title",
   "posting_date",
-  "property_group",
+  "rent_paid_by_employer",
+  "apply_invoices_now",
   "status",
   "amended_from",
   "section_break_5",
@@ -41,14 +44,14 @@
    "fieldname": "tenant",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Tenant",
+   "label": "Tenant #",
    "options": "Tenant Master",
    "reqd": 1
   },
   {
    "fieldname": "property",
    "fieldtype": "Link",
-   "label": "Property",
+   "label": "Unit",
    "options": "Property",
    "reqd": 1
   },
@@ -181,7 +184,7 @@
    "fetch_from": "property.property_group",
    "fieldname": "property_group",
    "fieldtype": "Link",
-   "label": "Real Estate Property",
+   "label": "Property",
    "options": "Real Estate Property",
    "read_only": 1
   },
@@ -216,11 +219,26 @@
    "fieldname": "title",
    "fieldtype": "Data",
    "label": "Title"
+  },
+  {
+   "fetch_from": "tenant.tenant_name",
+   "fieldname": "tenant_name",
+   "fieldtype": "Read Only",
+   "label": "Tenant Name"
+  },
+  {
+   "fetch_from": "property_group.cost_center",
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-10-21 17:47:37.673917",
- "modified_by": "pangit413@gmail.com",
+ "links": [],
+ "modified": "2022-07-01 14:19:12.737722",
+ "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Rental Contract",
  "owner": "Administrator",
@@ -235,6 +253,21 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "select": 1,
    "share": 1,
    "submit": 1,
    "write": 1

@@ -24,6 +24,7 @@ def execute(**kwargs):
         description = tenant_due.get('description')
         rental_amount = tenant_due.get('rental_amount')
         advance_paid_amount = tenant_due.get('advance_paid_amount')
+        cost_center = tenant_due.get('cost_center')
         customer = frappe.db.get_value('Tenant Master', tenant, 'customer')
 
         parent_rc = tenant_due.get('parent')
@@ -40,14 +41,18 @@ def execute(**kwargs):
             'due_date': tenant_due.get('invoice_date'),
             'debit_to': frappe.db.get_value('Company', invoice.company, 'default_receivable_account'),
             'set_posting_time': 1,
-            'pm_rental_contract': parent_rc
+            'pm_rental_contract': parent_rc,
+            'cost_center': cost_center,
+            'allocate_advances_automatically': 1
         })
         invoice.append('items', {
             'item_code': rental_item,
             'rate': amount,
             'qty': 1.0,
+            'conversion_factor': 1
         })
-        invoice.set_missing_values()
+        #invoice.set_missing_values()
+        invoice.run_method('set_missing_values')
         invoice.save()
 
         if submit_si:
@@ -71,7 +76,8 @@ def _get_tenant_dues(filters):
                 rci.parent,
                 rc.rental_amount,
                 rc.advance_paid_amount,
-                rc.tenant
+                rc.tenant,
+                rc.cost_center
             FROM `tabRental Contract Item` rci
             INNER JOIN `tabRental Contract` rc
             ON rci.parent = rc.name

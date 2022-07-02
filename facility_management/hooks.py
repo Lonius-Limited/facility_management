@@ -100,14 +100,14 @@ doctype_js = {
 # ----------
 
 # automatically create page for each record of this doctype
-# website_generators = ["Web Page"]
+website_generators = ["Landlord"]
 
 # Installation
 # ------------
 
 # before_install = "facility_management.install.before_install"
 # after_install = "facility_management.install.after_install"
-after_migrate = "facility_management.retain_workspace"
+# after_migrate = "facility_management.retain_workspace"
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2020-02-17 20:49:10.137856",
@@ -15,12 +16,16 @@
   "tenant_type",
   "gender",
   "dob",
+  "cost_center",
   "contact_details_section",
   "cr_no",
   "cpr",
   "cpr_expiry_date",
   "passport_no",
   "passport_expiry_date",
+  "passport_photo",
+  "id_attachment",
+  "attachments",
   "column_break_13",
   "emergency_contact_name",
   "relationship",
@@ -44,19 +49,20 @@
   {
    "fieldname": "first_name",
    "fieldtype": "Data",
-   "label": "First Name"
+   "label": "First Name",
+   "reqd": 1
   },
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name"
+   "label": "Last Name",
+   "reqd": 1
   },
   {
    "fieldname": "tenant_name",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Tenant Name",
-   "reqd": 1,
    "unique": 1
   },
   {
@@ -76,6 +82,7 @@
    "fieldtype": "Select",
    "label": "Type",
    "options": "Individual\nCompany",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -157,18 +164,21 @@
    "depends_on": "eval:doc.tenant_type==='Individual'",
    "fieldname": "cpr",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "CPR"
   },
   {
    "depends_on": "eval:doc.tenant_type==='Individual'",
    "fieldname": "cpr_expiry_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "CPR Expiry Date"
   },
   {
    "fieldname": "passport_no",
    "fieldtype": "Data",
-   "label": "Passport No"
+   "label": "Passport No/ID Number",
+   "reqd": 1
   },
   {
    "fieldname": "passport_expiry_date",
@@ -188,7 +198,8 @@
   {
    "fieldname": "mobile_no",
    "fieldtype": "Data",
-   "label": "Mobile Number"
+   "label": "Mobile Number",
+   "reqd": 1
   },
   {
    "fieldname": "mobile_no_2",
@@ -203,12 +214,14 @@
   {
    "fieldname": "email",
    "fieldtype": "Data",
-   "label": "Email Address"
+   "label": "Email Address",
+   "reqd": 1
   },
   {
    "depends_on": "eval:doc.tenant_type == \"Company\"",
    "fieldname": "cr_no",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "CR No"
   },
   {
@@ -216,9 +229,34 @@
    "fieldtype": "Select",
    "label": "Naming Series",
    "options": "TEN-"
+  },
+  {
+   "fieldname": "attachments",
+   "fieldtype": "Attach",
+   "label": "Other Attachments"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "passport_photo",
+   "fieldtype": "Attach Image",
+   "label": "Passport Photo"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "id_attachment",
+   "fieldtype": "Attach",
+   "label": "ID/Passport Copy"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "read_only": 1
   }
  ],
- "modified": "2020-12-14 14:46:06.578162",
+ "links": [],
+ "modified": "2022-07-01 16:30:37.523145",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Tenant Master",
@@ -235,8 +273,21 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "share": 1,
+   "write": 1
   }
  ],
+ "quick_entry": 1,
  "search_fields": "tenant_name,mobile_no,mobile_no_2,email,cpr",
  "sort_field": "modified",
  "sort_order": "DESC",
