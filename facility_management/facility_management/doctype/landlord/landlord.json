@@ -14,15 +14,20 @@
   "id_number",
   "paybill_number",
   "cost_center",
+  "agent_cost_center",
   "route",
   "naming_series",
-  "disable"
+  "disable",
+  "user"
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "landlord_name",
    "fieldtype": "Data",
+   "in_filter": 1,
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Landlord Name",
    "reqd": 1,
    "unique": 1
@@ -34,16 +39,22 @@
    "label": "CPR"
   },
   {
+   "columns": 1,
    "fieldname": "email",
    "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Email",
    "reqd": 1,
    "unique": 1
   },
   {
+   "allow_in_quick_entry": 1,
+   "columns": 1,
    "description": "Format: 07XXXXXXXX/01XXXXXXXX",
    "fieldname": "phone",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Phone",
    "length": 10,
    "unique": 1
@@ -55,20 +66,24 @@
    "reqd": 1
   },
   {
+   "allow_in_quick_entry": 1,
    "description": "To be used to integrate automated payment postings when tenants make payments.",
    "fieldname": "paybill_number",
    "fieldtype": "Data",
    "label": "Paybill Number"
   },
   {
+   "columns": 1,
    "fieldname": "cost_center",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Cost Center",
    "options": "Cost Center"
   },
   {
    "fieldname": "route",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "route"
   },
   {
@@ -82,11 +97,26 @@
    "fieldname": "disable",
    "fieldtype": "Check",
    "label": "Disable"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "agent_cost_center",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Agent Cost Center",
+   "options": "Cost Center"
   }
  ],
  "has_web_view": 1,
  "links": [],
- "modified": "2022-06-28 15:53:09.658063",
+ "modified": "2022-07-01 15:47:16.217260",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Landlord",
@@ -103,9 +133,23 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "share": 1,
+   "write": 1
   }
  ],
+ "quick_entry": 1,
  "route": "landlord",
+ "search_fields": "landlord_name, email, phone",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

@@ -3,7 +3,6 @@ import frappe
 from frappe import _
 from toolz import first
 
-
 @frappe.whitelist()
 def edit_personal_info(data):
     data = json.loads(data)

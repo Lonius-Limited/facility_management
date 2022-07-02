@@ -3,7 +3,7 @@
  "charts": [],
  "creation": "2022-05-11 16:59:27.197192",
  "developer_mode_only": 0,
- "disable_user_customization": 0,
+ "disable_user_customization": 1,
  "docstatus": 0,
  "doctype": "Workspace",
  "extends_another_page": 0,
@@ -13,8 +13,8 @@
  "is_standard": 1,
  "label": "Property Management",
  "links": [],
- "modified": "2022-05-11 23:33:31.712800",
- "modified_by": "Administrator",
+ "modified": "2022-06-29 10:46:32.428135",
+ "modified_by": "info@lonius.co.ke",
  "module": "Facility Management",
  "name": "Property Management",
  "owner": "Administrator",
@@ -39,8 +39,8 @@
    "type": "DocType"
   },
   {
-   "doc_view": "List",
-   "label": "Tenant Master List",
+   "doc_view": "New",
+   "label": "New Tenant",
    "link_to": "Tenant Master",
    "type": "DocType"
   },
@@ -99,7 +99,7 @@
   {
    "color": "#5d0da8",
    "doc_view": "List",
-   "label": "Pending Invoices",
+   "label": "Vendor Invoices",
    "link_to": "Purchase Invoice",
    "type": "DocType"
   },
@@ -109,6 +109,30 @@
    "label": "Payments",
    "link_to": "Payment Entry",
    "stats_filter": "{\n    \"docstatus\":1,\n    \"payment_type\":\"Pay\"\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Property Checkin/Checkout",
+   "link_to": "Property Checkup",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Property Inventory",
+   "link_to": "Property Inventory",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Property Maintenance",
+   "link_to": "Property Maintenance",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Tenant Violation",
+   "link_to": "Tenant Violation",
    "type": "DocType"
   }
  ],

@@ -107,7 +107,7 @@ website_generators = ["Landlord"]
 
 # before_install = "facility_management.install.before_install"
 # after_install = "facility_management.install.after_install"
-after_migrate = "facility_management.retain_workspace"
+# after_migrate = "facility_management.retain_workspace"
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
