@@ -227,7 +227,7 @@
    "label": "Tenant Name"
   },
   {
-   "fetch_from": "property_group.cost_center",
+   "fetch_from": "property.landlord_cost_center",
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
@@ -237,7 +237,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-01 14:19:12.737722",
+ "modified": "2022-07-19 00:00:24.652563",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Rental Contract",

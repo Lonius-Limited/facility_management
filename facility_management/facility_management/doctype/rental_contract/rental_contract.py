@@ -108,6 +108,7 @@ def _set_property_as_rented(renting):
 
 def _generate_invoices_now(renting):
     def make_data(item_data):
+        print(renting.cost_center)
         return {
             "customer": customer,
             "due_date": item_data.invoice_date,
@@ -116,8 +117,9 @@ def _generate_invoices_now(renting):
             "set_posting_time": 1,
             "posting_time": 0,
             "pm_rental_contract": renting.name,
+            "cost_center": renting.cost_center,
             "items": [
-                {"item_code": rental_item, "rate": renting.rental_amount, "qty": 1}
+                {"item_code": rental_item, "rate": renting.rental_amount, "qty": 1, "cost_center": renting.cost_center}
             ],
         }
 
@@ -141,7 +143,7 @@ def _generate_invoices_now(renting):
         invoice.update(invoice_data)
         invoice.append("items", items[0])
         invoice.set_missing_values()
-        invoice.save()
+        invoice.save(ignore_permissions=True)
 
         if submit_si:
             invoice.submit()
