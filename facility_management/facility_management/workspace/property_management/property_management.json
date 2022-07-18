@@ -1,6 +1,11 @@
 {
  "category": "Modules",
- "charts": [],
+ "charts": [
+  {
+   "chart_name": "Outgoing Bills (Sales Invoice)",
+   "label": "Rent Sales"
+  }
+ ],
  "creation": "2022-05-11 16:59:27.197192",
  "developer_mode_only": 0,
  "disable_user_customization": 1,
@@ -13,7 +18,7 @@
  "is_standard": 1,
  "label": "Property Management",
  "links": [],
- "modified": "2022-06-29 10:46:32.428135",
+ "modified": "2022-07-04 23:24:04.010131",
  "modified_by": "info@lonius.co.ke",
  "module": "Facility Management",
  "name": "Property Management",
@@ -134,6 +139,12 @@
    "label": "Tenant Violation",
    "link_to": "Tenant Violation",
    "type": "DocType"
+  },
+  {
+   "doc_view": "Dashboard",
+   "label": "Summary Dashboard",
+   "link_to": "Facility Management",
+   "type": "Dashboard"
   }
  ],
  "shortcuts_label": "Property Management "

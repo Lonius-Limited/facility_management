@@ -114,7 +114,7 @@ def make_and_link_user(doc):
 	user.append('roles',dict(role='Item Manager'))
 	user.append('roles',dict(role='HR User'))
 	user.append('roles',dict(role='Stock Manager'))
-	# user.append('roles',dict(role='Accounts Manager'))
+	user.append('roles',dict(role='Accounts Manager'))
 	user.append('roles',dict(role='Purchase Manager'))
 	user.append('roles',dict(role='Purchase User'))
 	user.append('roles',dict(role='Purchase Master Manager'))
@@ -130,7 +130,7 @@ def make_and_link_user(doc):
 	#BLOCK ALL MODULES THAT THEY DON'T NEED ACCESS TO
 	from frappe.config import get_modules_from_all_apps
 	user.set('block_modules', [])
-	allowed_modules = ['Workflow', 'Desk', 'Printing', 'Facility Management']
+	allowed_modules = ['Workflow', 'Desk', 'Printing', 'Facility Management', 'Accounts']
 	for m in get_modules_from_all_apps():
 		if m.get("module_name") not in allowed_modules:
 			user.append('block_modules', {
@@ -181,7 +181,7 @@ def add_restrictions(doc, user, company, cost_center):
 				# applicable_for="Material Request",
 			)
 		).insert(ignore_permissions=True)
-	if (user.get('name') != frappe.session.user) and (frappe.session.user != 'Administrator'):
+	if (user.get('name') != frappe.session.user) and (frappe.session.user != 'Administrator') and (frappe.session.user != 'Guest'):
 		if not frappe.db.exists("User Permission", {"allow": "Cost Center", "user": frappe.session.user, "for_value": cost_center.get('name')}):
 			frappe.get_doc(
 				dict(

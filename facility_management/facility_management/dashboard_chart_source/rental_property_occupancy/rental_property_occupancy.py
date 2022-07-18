@@ -31,16 +31,14 @@ def _get_datasets(filters):
         for option in options:
             values.append(data[option])
         return values
-
+    clauses = _get_clauses(filters) or ";"
     properties = frappe.db.sql(
         """
             SELECT rental_status
             FROM `tabProperty`
             WHERE property_status = 'Rental'
             {clauses}
-        """.format(
-            clauses=_get_clauses(filters)
-        ),
+        """.format(clauses),
         filters,
         as_dict=1
     )
@@ -66,6 +64,7 @@ def _get_rental_status_options():
 
 
 def _get_clauses(filters):
+    print(filters)
     clauses = []
     if filters.get('property_group'):
         clauses.append('property_group = %(property_group)s')
