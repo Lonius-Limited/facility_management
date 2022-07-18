@@ -5,7 +5,7 @@ import frappe
 def add_dashboard():
     dashboard = frappe.new_doc('Dashboard')
     dashboard.dashboard_name = 'Facility Management'
-    for chart in ['Rental Value', 'Rental Revenue', 'Rental Billing', 'Rental Property Occupancy', 'Income', 'Expenses']:
+    for chart in ['Rental Value', 'Rental Revenue', 'Rental Billing', 'Rental Property Occupancy', 'Accounts Receivable Ageing', 'Outgoing Bills (Sales Invoice)']:
         dashboard.append('charts', {'chart': chart})
     dashboard.save()
     return dashboard

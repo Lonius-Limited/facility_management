@@ -13,7 +13,8 @@ class Property(Document):
 		_validate_property_status(self)
 	
 	def after_insert(self):
-		_set_user_permissions(self)
+		pass
+		#_set_user_permissions(self)
 
 	def on_update(self):
 		pass

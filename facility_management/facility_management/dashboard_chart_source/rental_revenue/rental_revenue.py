@@ -41,6 +41,7 @@ def _get_property_types():
 
 
 def _get_rental_contracts(filters):
+    clauses = _get_clauses(filters) or ";"
     rental_contracts = frappe.db.sql(
         """
             SELECT rc.rental_amount, p.property_type
@@ -50,9 +51,7 @@ def _get_rental_contracts(filters):
             WHERE rc.docstatus = 1
             AND rc.status = 'Active'
             {clauses}
-        """.format(
-            clauses=_get_clauses(filters)
-        ),
+        """.format(clauses),
         filters,
         as_dict=1
     )
