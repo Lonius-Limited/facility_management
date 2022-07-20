@@ -31,7 +31,9 @@ def get_company_id():
 def link_user_and_company(doc):
 	company = make_company(doc)
 	user = make_and_link_user(doc)
-	create_user_cost_center(doc, user, company)
+	add_company_restrictions(doc, user, company)
+	# create_user_cost_center(doc, user, company)
+	# create_user_territory(doc, user, company)
 	doc.set('user', user.get('name'))
 	# doc.save(ignore_permissions=True)
 	message ="""<p>Dear <b style='color:green'>{}</b> <br/>
@@ -76,28 +78,28 @@ def alert_practitioner(doc, message):
 def make_company(doc):
 	pc = frappe.get_all(
 		"Company",
-		#filters=dict(is_group=1, parent_company=""),
-		filters=dict(parent_company=""),
+		filters=dict(is_group=1, parent_company=""),
 		fields=["*"],
 		order_by="creation DESC",
 		page_length=1,
 	)
 	if not pc:
 		frappe.throw(
-			"Sorry, there is an issue preventing your registration at this time. Try again later."
+			"Sorry, a root company is not set up in the company tree. Requirements : Is Group=1,Parent Company =''"
 		)
 	parent_company = pc[0]
-	""" args = dict(
+	args = dict(
 		doctype="Company",
-		company_name=doc.get("name"),
+		company_name=doc.get("landlord_name"),
 		parent_company=parent_company.get("name"),
 		is_group=0,
 		abbr=get_company_id(),
 		default_currency=parent_company.get("default_currency"),
 		country=parent_company.get("country"),
 	)
-	company = frappe.get_doc(args).save(ignore_permissions=1) """
-	return parent_company.get("name")
+	company = frappe.get_doc(args).save(ignore_permissions=1)
+	doc.company = doc.get("landlord_name")
+	return company
 
 
 def make_and_link_user(doc):
@@ -141,55 +143,91 @@ def make_and_link_user(doc):
 
 def create_user_cost_center(doc, user, company):
 	#CREATE COST CENTER
+	the_user = user.get("name")
+	if frappe.session.user != 'Guest': the_user = doc.get("landlord_name")
 	group_cost_center = frappe.get_all("Cost Center", filters=dict(is_group=1, parent_cost_center = ""), fields = ["*"], page_length=1)
 	cost_center = frappe.get_doc(
 		dict(
 			doctype="Cost Center",
-			cost_center_name = user.get('name'),
+			cost_center_name = the_user,
 			cost_center_number = doc.get('name'),
 			parent_cost_center = group_cost_center[0].get('name'),
-			company = company
+			company = company.get('name')
 		)
 	).insert(ignore_permissions=True)
 	add_restrictions(doc, user, company, cost_center)
 	doc.cost_center = cost_center.get('name')
 	if doc.agent_cost_center == "": doc.agent_cost_center = cost_center.get('name')
 
-def add_restrictions(doc, user, company, cost_center):
-	""" clear_user_permissions(user, "Company")
-	frappe.get_doc(
+def create_user_territory(doc, user, company):
+	#CREATE TERRITORY
+	the_user = user.get("name")
+	if frappe.session.user != 'Guest': the_user = doc.get("landlord_name")
+	root_territory = frappe.get_all("Territory", filters=dict(is_group=1, parent_territory = ""), fields = ["*"], page_length=1)[0].get('name')
+	territory_is_group = 1
+	if (user.get('name') != frappe.session.user):
+		root_territory = frappe.session.user
+		territory_is_group = 0
+	territory = frappe.get_doc(
 		dict(
-			doctype="User Permission",
-			user=user.get('name'),
-			allow="Company",
-			for_value=company.get('name'),
-			apply_to_all_doctypes=1,
-			# applicable_for="Material Request",
+			doctype="Territory",
+			territory_name = the_user,
+			name = doc.get('name'),
+			parent_territory = root_territory,
+			is_group = territory_is_group
 		)
-	).insert(ignore_permissions=True) """
+	).insert(ignore_permissions=True)
+	add_restrictions(doc, user, company, territory)
+	# doc.territory = territory.get('name')
 
-	#SET USER PERMISSION TO COST CENTER FOR BOTH LOGIN USER AND LANDLORD USER
-	# clear_user_permissions(user, "Cost Center")
-	if not frappe.db.exists("User Permission", {"allow": "Cost Center", "user": user.get('name'), "for_value": cost_center.get('name')}):
+def add_company_restrictions(doc, user, company):
+	if not frappe.db.exists("User Permission", {"allow": "Company", "user": user.get('name'), "for_value": company.get('name')}):
 		frappe.get_doc(
 			dict(
-				doctype="User Permission",
-				user=user.get('name'),
-				allow="Cost Center",
-				for_value=cost_center.get('name'),
-				apply_to_all_doctypes=1,
+				doctype = "User Permission",
+				user = user.get('name'),
+				allow = "Company",
+				for_value = company.get('name'),
+				apply_to_all_doctypes = 1,
+				is_default = 1
 				# applicable_for="Material Request",
 			)
 		).insert(ignore_permissions=True)
 	if (user.get('name') != frappe.session.user) and (frappe.session.user != 'Administrator') and (frappe.session.user != 'Guest'):
-		if not frappe.db.exists("User Permission", {"allow": "Cost Center", "user": frappe.session.user, "for_value": cost_center.get('name')}):
+		if not frappe.db.exists("User Permission", {"allow": "Company", "user": frappe.session.user, "for_value": company.get('name')}):
 			frappe.get_doc(
 				dict(
-					doctype="User Permission",
-					user=frappe.session.user,
-					allow="Cost Center",
-					for_value=cost_center.get('name'),
-					apply_to_all_doctypes=1,
+					doctype= "User Permission",
+					user= frappe.session.user,
+					allow="Company",
+					for_value= company.get('name'),
+					apply_to_all_doctypes= 1,
 					# applicable_for="Material Request",
+				)
+			).insert(ignore_permissions=True)
+
+def add_restrictions(doc, user, company, document):
+	#SET USER PERMISSION FOR BOTH LOGIN USER AND LANDLORD USER
+	doctype = document.get('doctype')
+	if not frappe.db.exists("User Permission", {"allow": doctype, "user": user.get('name'), "for_value": document.get('name')}):
+		frappe.get_doc(
+			dict(
+				doctype = "User Permission",
+				user = user.get('name'),
+				allow = doctype,
+				for_value = document.get('name'),
+				apply_to_all_doctypes = 1,
+				is_default = 1
+			)
+		).insert(ignore_permissions=True)
+	if (user.get('name') != frappe.session.user) and (frappe.session.user != 'Administrator') and (frappe.session.user != 'Guest'):
+		if not frappe.db.exists("User Permission", {"allow": doctype, "user": frappe.session.user, "for_value": document.get('name')}):
+			frappe.get_doc(
+				dict(
+					doctype= "User Permission",
+					user= frappe.session.user,
+					allow= doctype,
+					for_value= document.get('name'),
+					apply_to_all_doctypes= 1
 				)
 			).insert(ignore_permissions=True)

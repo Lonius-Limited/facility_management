@@ -12,6 +12,7 @@
   "address_line_1",
   "address_line_2",
   "cost_center",
+  "company",
   "letter_head",
   "insured",
   "column_break_8",
@@ -46,10 +47,10 @@
   {
    "fieldname": "cost_center",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Cost Center",
-   "options": "Cost Center",
-   "reqd": 1
+   "options": "Cost Center"
   },
   {
    "default": "0",
@@ -124,10 +125,16 @@
    "fieldname": "abbr",
    "fieldtype": "Data",
    "label": "Abbr"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "links": [],
- "modified": "2022-06-30 00:05:35.717404",
+ "modified": "2022-07-20 09:30:42.257565",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Real Estate Property",

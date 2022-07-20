@@ -13,12 +13,13 @@
  "doctype": "Workspace",
  "extends_another_page": 0,
  "hide_custom": 0,
+ "icon": "assets",
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
  "label": "Property Management",
  "links": [],
- "modified": "2022-07-04 23:24:04.010131",
+ "modified": "2022-07-20 16:51:14.555093",
  "modified_by": "info@lonius.co.ke",
  "module": "Facility Management",
  "name": "Property Management",
@@ -29,7 +30,7 @@
   {
    "doc_view": "List",
    "format": "{} Active properties",
-   "label": "Property",
+   "label": "Property/Building",
    "link_to": "Real Estate Property",
    "stats_filter": "{\n    \"property_name\":[\"!=\",\"\"]\n}",
    "type": "DocType"
@@ -38,7 +39,7 @@
    "color": "#2e55b8",
    "doc_view": "List",
    "format": "{} Vacant",
-   "label": "Units",
+   "label": "Units/House",
    "link_to": "Property",
    "stats_filter": "{\n    \"rental_status\": \"Vacant\"\n}",
    "type": "DocType"

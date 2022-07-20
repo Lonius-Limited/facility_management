@@ -108,7 +108,8 @@ def _set_property_as_rented(renting):
 
 def _generate_invoices_now(renting):
     def make_data(item_data):
-        print(renting.cost_center)
+        # print(renting.cost_center)
+        cost_center = frappe.get_doc('Company', renting.company).get('cost_center')
         return {
             "customer": customer,
             "due_date": item_data.invoice_date,
@@ -117,9 +118,11 @@ def _generate_invoices_now(renting):
             "set_posting_time": 1,
             "posting_time": 0,
             "pm_rental_contract": renting.name,
-            "cost_center": renting.cost_center,
+            "company": renting.company,
+            "cost_center": cost_center,
+            # "territory": renting.cost_center,
             "items": [
-                {"item_code": rental_item, "rate": renting.rental_amount, "qty": 1, "cost_center": renting.cost_center}
+                {"item_code": rental_item, "rate": renting.rental_amount, "qty": 1, "cost_center": cost_center}
             ],
         }
 

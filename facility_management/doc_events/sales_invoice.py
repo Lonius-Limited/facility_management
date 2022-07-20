@@ -16,12 +16,12 @@ def _set_missing_values(invoice):
             fields=['tenant', 'property', 'property_group']
         )[0]
         property_group = rental_contract.get('property_group')
-        cost_center = frappe.get_value('Real Estate Property', property_group, 'cost_center')
+        # cost_center = frappe.get_value('Real Estate Property', property_group, 'cost_center')
 
         invoice.pm_property_group = property_group
         invoice.pm_tenant = rental_contract.get('tenant')
         invoice.pm_property = rental_contract.get('property')
         invoice.remarks = invoice.pm_rental_contract
 
-        for item in invoice.items:
-            item.cost_center = cost_center
+        # for item in invoice.items:
+        #     item.cost_center = cost_center
