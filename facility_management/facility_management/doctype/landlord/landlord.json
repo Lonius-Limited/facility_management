@@ -15,6 +15,7 @@
   "paybill_number",
   "cost_center",
   "agent_cost_center",
+  "company",
   "route",
   "naming_series",
   "disable",
@@ -76,6 +77,7 @@
    "columns": 1,
    "fieldname": "cost_center",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Cost Center",
    "options": "Cost Center"
@@ -109,14 +111,22 @@
    "columns": 1,
    "fieldname": "agent_cost_center",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Agent Cost Center",
    "options": "Cost Center"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
   }
  ],
  "has_web_view": 1,
  "links": [],
- "modified": "2022-07-01 15:47:16.217260",
+ "modified": "2022-07-20 10:13:17.853047",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Landlord",
