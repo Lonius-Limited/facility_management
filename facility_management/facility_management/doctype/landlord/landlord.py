@@ -61,7 +61,7 @@ def link_user_and_company(doc):
 			<p>We hope this can help you quickly get you started on Ploti Cloud. Enjoy the instant benefits of never staying in the dark about your Properties.<br/> If you have any questions contact us via the email: info@ploti.cloud.
 			</p><br/><br/>""".format(doc.get('landlord_name').title(),doc.get('email').lower())
 	# frappe.msgprint(f"{message}")
-	# alert_practitioner(doc,message)
+	alert_practitioner(doc,message)
 	return user.get('name')
 def alert_practitioner(doc, message):
 	"""send email with intro message"""
@@ -105,7 +105,7 @@ def make_company(doc):
 def make_and_link_user(doc):
 	args = {
 		"doctype": "User",
-		"send_welcome_email": 0,
+		"send_welcome_email": 1,
 		"email": doc.get('email'),
 		"first_name": doc.get("landlord_name"),
 		"user_type": "System User",
