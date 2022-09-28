@@ -19,8 +19,8 @@
  "is_standard": 1,
  "label": "Property Management",
  "links": [],
- "modified": "2022-07-20 16:51:14.555093",
- "modified_by": "info@lonius.co.ke",
+ "modified": "2022-09-28 21:15:36.900017",
+ "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property Management",
  "owner": "Administrator",
@@ -71,6 +71,13 @@
    "label": "Tenant Monthly Invoices",
    "link_to": "Sales Invoice",
    "stats_filter": "{\n    \"docstatus\":1,\n    \"status\":[\"!=\",\"Paid\"]\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Utility Bills",
+   "link_to": "Utility Bills",
+   "restrict_to_domain": "",
    "type": "DocType"
   },
   {

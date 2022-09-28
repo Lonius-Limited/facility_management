@@ -16,6 +16,9 @@ def set_invoice_created(name, invoice_ref):
     frappe.db.set_value('Rental Contract Item', name, 'is_invoice_created', 1)
     frappe.db.set_value('Rental Contract Item', name, 'invoice_ref', invoice_ref)
 
+def flag_processed_utility_bill_item(name, invoice_ref):
+    frappe.db.set_value('Utility Bill Item', name, 'invoiced', 1)
+    frappe.db.set_value('Utility Bill Item', name, 'reference', invoice_ref)
 
 def set_all_property_as_vacant():
     """

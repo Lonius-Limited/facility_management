@@ -1,0 +1,126 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "UTIL.#####",
+ "creation": "2022-09-28 09:18:25.317004",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "property",
+  "posting_date",
+  "bill",
+  "bill_name",
+  "column_break_3",
+  "units_consumed",
+  "amount_billed",
+  "rate_per_unit",
+  "section_break_7",
+  "split_to_tenants",
+  "tenant_total",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Property",
+   "options": "Real Estate Property",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bill",
+   "fieldtype": "Link",
+   "label": "Bill Code",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "units_consumed",
+   "fieldtype": "Float",
+   "label": "Units Consumed",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount_billed",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Bill Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "split_to_tenants",
+   "fieldtype": "Table",
+   "label": "Split to Tenants",
+   "options": "Utility Bill Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Utility Bills",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bill.item_name",
+   "fieldname": "bill_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Bill Name"
+  },
+  {
+   "fieldname": "tenant_total",
+   "fieldtype": "Currency",
+   "label": "Total Split to Tenants",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rate_per_unit",
+   "fieldtype": "Currency",
+   "label": "Rate Per Unit",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-09-28 19:01:45.921892",
+ "modified_by": "Administrator",
+ "module": "Facility Management",
+ "name": "Utility Bills",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

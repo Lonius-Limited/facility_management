@@ -1,7 +1,7 @@
 import frappe
 from frappe import _dict
 from frappe.utils.data import today, get_first_day, get_last_day
-from facility_management.helpers import set_invoice_created
+from facility_management.helpers import set_invoice_created, flag_processed_utility_bill_item
 
 
 # TODO: remove unused codes
@@ -33,6 +33,9 @@ def execute(**kwargs):
 
         amount = advance_paid_amount if description == 'Advance Payment' else rental_amount
 
+        #GET ADDITIONAL BILLS TO ADD TO INVOICE
+        additional_bills = _get_utility_bills(parent_rc)
+
         invoice = frappe.new_doc('Sales Invoice')
         invoice.update({
             'customer': customer,
@@ -51,6 +54,16 @@ def execute(**kwargs):
             'qty': 1.0,
             'conversion_factor': 1
         })
+
+        #APPEND THE ADDITIONAL UTILITY BILLS
+        for bill in additional_bills:
+            invoice.append('items', {
+                'item_code': bill.bill,
+                'rate': bill.rate_per_unit,
+                'qty': bill.units_consumed,
+                'conversion_factor': 1
+            })
+
         #invoice.set_missing_values()
         invoice.run_method('set_missing_values')
         invoice.save()
@@ -59,6 +72,8 @@ def execute(**kwargs):
             invoice.submit()
 
         set_invoice_created(tenant_due.get('name'), invoice.name)
+        for bill in additional_bills:
+            flag_processed_utility_bill_item(bill.name, invoice.name)
 
 
 def _get_tenant_dues(filters):
@@ -100,3 +115,23 @@ def _get_clauses(filters):
     if not filters.get('apply_now'):
         clauses.append('rci.invoice_date < %(now)s')
     return 'AND'.join(clauses)
+
+def _get_utility_bills(contract):
+    return frappe.db.sql(
+        f"""
+            SELECT
+                ubi.name,
+                ubi.contract,
+                ubi.units_consumed,
+                ubi.amount,
+                ub.rate_per_unit,
+                ub.bill
+            FROM `tabUtility Bill Item` ubi
+            INNER JOIN `tabUtility Bills` ub
+            ON ubi.parent = ub.name
+            WHERE ub.docstatus = 1 
+            AND ubi.invoiced = 0
+            AND ubi.contract = '{contract}'
+        """,
+        as_dict=True
+    )
