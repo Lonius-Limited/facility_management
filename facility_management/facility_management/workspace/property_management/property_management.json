@@ -19,7 +19,7 @@
  "is_standard": 1,
  "label": "Property Management",
  "links": [],
- "modified": "2022-09-28 21:15:36.900017",
+ "modified": "2022-09-28 22:09:57.664248",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property Management",
@@ -28,6 +28,7 @@
  "pin_to_top": 1,
  "shortcuts": [
   {
+   "color": "#449CF0",
    "doc_view": "List",
    "format": "{} Active properties",
    "label": "Property/Building",
@@ -45,7 +46,9 @@
    "type": "DocType"
   },
   {
+   "color": "#9fed55",
    "doc_view": "New",
+   "format": "{} Tenants",
    "label": "New Tenant",
    "link_to": "Tenant Master",
    "type": "DocType"
@@ -74,10 +77,13 @@
    "type": "DocType"
   },
   {
+   "color": "#761ACB",
    "doc_view": "List",
+   "format": "{} Posted",
    "label": "Utility Bills",
    "link_to": "Utility Bills",
    "restrict_to_domain": "",
+   "stats_filter": "{\n    \"docstatus\": 1\n}",
    "type": "DocType"
   },
   {
