@@ -8,16 +8,24 @@
  "engine": "InnoDB",
  "field_order": [
   "property",
-  "posting_date",
   "bill",
   "bill_name",
   "column_break_3",
-  "units_consumed",
   "amount_billed",
+  "landlord_bill_amount",
   "rate_per_unit",
+  "column_break_8",
+  "bill_reading",
+  "last_reading",
+  "units_consumed",
   "section_break_7",
   "split_to_tenants",
+  "section_break_14",
   "tenant_total",
+  "column_break_15",
+  "posting_date",
+  "column_break_18",
+  "last_bill_date",
   "amended_from"
  ],
  "fields": [
@@ -31,10 +39,11 @@
    "set_only_once": 1
   },
   {
+   "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Posting Date"
+   "label": "This Bill Date",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_3",
@@ -97,12 +106,50 @@
    "fieldtype": "Currency",
    "label": "Rate Per Unit",
    "read_only": 1
+  },
+  {
+   "fieldname": "landlord_bill_amount",
+   "fieldtype": "Currency",
+   "label": "Landlord Bill Amount"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bill_reading",
+   "fieldtype": "Float",
+   "label": "Bill Reading"
+  },
+  {
+   "fieldname": "last_reading",
+   "fieldtype": "Float",
+   "label": "Last Reading",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_bill_date",
+   "fieldtype": "Date",
+   "label": "Last Bill Date",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-28 19:01:45.921892",
+ "modified": "2022-10-04 17:19:57.737527",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Utility Bills",
@@ -118,6 +165,21 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

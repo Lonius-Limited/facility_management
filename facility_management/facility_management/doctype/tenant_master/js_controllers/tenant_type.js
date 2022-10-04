@@ -4,6 +4,8 @@ function tenant_type(frm) {
     frm.set_df_property('last_name', 'hidden', frm.doc.tenant_type === 'Company');
     frm.set_df_property('first_name', 'reqd', frm.doc.tenant_type === 'Individual');
     frm.set_df_property('last_name', 'reqd', frm.doc.tenant_type === 'Individual');
+    frm.set_df_property('gender', 'hidden', frm.doc.tenant_type === 'Company');
+    frm.set_df_property('dob', 'hidden', frm.doc.tenant_type === 'Company');
 }
 
 

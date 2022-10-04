@@ -85,7 +85,7 @@ def make_company(doc):
 	)
 	if not pc:
 		frappe.throw(
-			"Sorry, a root company is not set up in the company tree. Requirements : Is Group=1,Parent Company =''"
+			"Please create another holding company and ensure to tick the 'Is Group' check. Every landlord or agent is saved with their own company that reports to this parent company."
 		)
 	parent_company = pc[0]
 	args = dict(

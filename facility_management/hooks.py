@@ -44,6 +44,18 @@ fixtures = [
         ]
     },
     {
+        "doctype": "Item",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "ITM-00001", "ITM-00002", "ITM-00003", "ITM-00004", "ITM-00005", "ITM-00006"
+                ]
+            ]
+        ]
+    },
+    {
         "doctype": "Dashboard Chart",
         "filters": [
             [

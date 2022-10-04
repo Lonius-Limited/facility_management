@@ -19,8 +19,8 @@
  "is_standard": 1,
  "label": "Property Management",
  "links": [],
- "modified": "2022-09-28 22:09:57.664248",
- "modified_by": "Administrator",
+ "modified": "2022-10-04 14:17:51.781582",
+ "modified_by": "info@lonius.co.ke",
  "module": "Facility Management",
  "name": "Property Management",
  "owner": "Administrator",
@@ -159,6 +159,12 @@
    "label": "Summary Dashboard",
    "link_to": "Facility Management",
    "type": "Dashboard"
+  },
+  {
+   "doc_view": "",
+   "label": "Rental Settings",
+   "link_to": "Facility Management Settings",
+   "type": "DocType"
   }
  ],
  "shortcuts_label": "Property Management "

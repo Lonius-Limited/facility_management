@@ -41,8 +41,8 @@ def _validate_tenant_name(tenant):
 
 
 def _create_customer(tenant):
-	customer_group = frappe.get_value('Selling Settings', None, 'customer_group')
-	territory = frappe.get_value('Selling Settings', None, 'territory')
+	customer_group = frappe.get_value('Selling Settings', None, 'customer_group') or 'All Customer Groups'
+	territory = frappe.get_value('Selling Settings', None, 'territory') or 'All Territories'
 	if not (customer_group and territory):
 		frappe.throw(_('Please set default customer group and territory in Selling Settings'))
 
