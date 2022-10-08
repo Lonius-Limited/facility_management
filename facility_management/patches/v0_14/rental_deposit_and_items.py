@@ -44,8 +44,7 @@ def execute():
 		"max_discount": 0.0,
 		"min_order_qty": 0.0,
 		"modified": "2022-10-04 14:29:25.696110",
-		"name": "ITM-000010",
-		"naming_series": "STO-ITEM-.YYYY.-",
+		"name": "ITM-00001",
 		"no_of_months": 0,
 		"no_of_months_exp": 0,
 		"opening_stock": 0.0,
@@ -120,7 +119,6 @@ def execute():
 		"min_order_qty": 0.0,
 		"modified": "2022-10-04 14:29:51.691150",
 		"name": "ITM-00002",
-		"naming_series": "STO-ITEM-.YYYY.-",
 		"no_of_months": 0,
 		"no_of_months_exp": 0,
 		"opening_stock": 0.0,
@@ -195,7 +193,6 @@ def execute():
 		"min_order_qty": 0.0,
 		"modified": "2022-10-04 14:30:18.459249",
 		"name": "ITM-00003",
-		"naming_series": "STO-ITEM-.YYYY.-",
 		"no_of_months": 0,
 		"no_of_months_exp": 0,
 		"opening_stock": 0.0,
@@ -266,7 +263,6 @@ def execute():
 		"min_order_qty": 0.0,
 		"modified": "2022-10-04 14:30:43.329748",
 		"name": "ITM-00004",
-		"naming_series": "STO-ITEM-.YYYY.-",
 		"reorder_levels": [],
 		"retain_sample": 0,
 		"safety_stock": 0.0,
@@ -328,7 +324,6 @@ def execute():
 		"min_order_qty": 0.0,
 		"modified": "2022-10-04 14:31:06.480056",
 		"name": "ITM-00005",
-		"naming_series": "STO-ITEM-.YYYY.-",
 		"no_of_months": 0,
 		"no_of_months_exp": 0,
 		"opening_stock": 0.0,
@@ -399,7 +394,6 @@ def execute():
 		"min_order_qty": 0.0,
 		"modified": "2022-10-04 14:31:30.019880",
 		"name": "ITM-00006",
-		"naming_series": "STO-ITEM-.YYYY.-",
 		"no_of_months": 0,
 		"no_of_months_exp": 0,
 		"opening_stock": 0.0,
@@ -465,7 +459,6 @@ def execute():
 		"min_order_qty": 0.0,
 		"modified": "2022-10-06 09:20:35.921914",
 		"name": "ITM-00007",
-		"naming_series": "STO-ITEM-.YYYY.-",
 		"no_of_months": 0,
 		"no_of_months_exp": 0,
 		"opening_stock": 0.0,
@@ -493,7 +486,7 @@ def execute():
 		"variant_based_on": "Item Attribute"
 		}
 	]
-	
+	frappe.db.set_value('Stock Settings', 'Stock Settings', 'item_naming_by', 'Item Code')
 	for item in items:
 		if not frappe.db.exists("Item", item.get('item_code'), cache=True):
 			frappe.get_doc(item).insert()
