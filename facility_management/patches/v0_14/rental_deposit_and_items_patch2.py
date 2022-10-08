@@ -486,7 +486,9 @@ def execute():
 		"variant_based_on": "Item Attribute"
 		}
 	]
-	frappe.db.set_value('Stock Settings', 'Stock Settings', 'item_naming_by', 'Item Code')
+	stock_settings = frappe.get_doc('Stock Settings')
+	stock_settings.item_naming_by = 'Item Code'
+	stock_settings.save()
 	for item in items:
 		if not frappe.db.exists("Item", item.get('item_code'), cache=True):
 			frappe.get_doc(item).insert()
