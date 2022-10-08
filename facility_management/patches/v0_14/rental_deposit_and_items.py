@@ -495,23 +495,47 @@ def execute():
 	]
 	
 	for item in items:
-		if not frappe.db.exists("Item", item.get('name'), cache=True):
+		if not frappe.db.exists("Item", item.get('item_code'), cache=True):
 			frappe.get_doc(item).insert()
+	
+	#UPDATE VALUES IN FACILITY SETTINGS
+	frappe.db.set_value('Facility Management Settings', 'Facility Management Settings', 'rental_item', 'ITM-00001')
+	frappe.db.set_value('Facility Management Settings', 'Facility Management Settings', 'deposit_item', 'ITM-00007')
 		
 	for company in frappe.db.get_all('Company'):
 		payable_group_account = frappe.db.get_list('Account',
 			filters={
-				'account_name': 'Accounts Payable',
+				'account_name': 'Current Liabilities',
 				'is_group': 1,
 				'company': company.get('name')
 			},
 			fields=['name']
 		)
-		if not frappe.db.exists("Account", {"account_name": "Security Deposit", "company": company.get('name')}):
+		if not frappe.db.exists("Account", {"account_name": "Customer Deposits", "company": company.get('name')}):
+			group_account = frappe.get_doc({
+				"account_name": "Customer Deposits",
+				"account_number": "2500",
+				"balance_must_be": "",
+				"disabled": 0,
+				"docstatus": 0,
+				"doctype": "Account",
+				"freeze_account": "No",
+				"include_in_gross": 0,
+				"inter_company_account": 0,
+				"is_group": 1,
+				"parent": payable_group_account[0].name,
+				"parent_account":  payable_group_account[0].name,
+				"report_type": "Balance Sheet",
+				"root_type": "Liability",
+				"tax_rate": 0.0,
+				"company": company.get('name')
+			}).insert()
+		else:
+			group_account = frappe.db.get_list("Account", filters={"account_name": "Customer Deposits", "company": company.get('name')}, fields=['name'])[0]
+		if not frappe.db.exists("Account", {"account_name": "Rent Security Deposit", "company": company.get('name')}):
 			account = frappe.get_doc({
-				"account_name": "Security Deposit",
-				"account_number": "2130",
-				"account_type": "Payable",
+				"account_name": "Rent Security Deposit",
+				"account_number": "2510",
 				"balance_must_be": "",
 				"disabled": 0,
 				"docstatus": 0,
@@ -520,16 +544,28 @@ def execute():
 				"include_in_gross": 0,
 				"inter_company_account": 0,
 				"is_group": 0,
-				"parent": payable_group_account[0].name,
-				"parent_account":  payable_group_account[0].name,
+				"parent": group_account.get('name'),
+				"parent_account":  group_account.get('name'),
 				"report_type": "Balance Sheet",
 				"root_type": "Liability",
 				"tax_rate": 0.0,
 				"company": company.get('name')
 			}).insert()
-
-			for item in items:
-				if item.get('name') == 'ITM-00007':
+		else:
+			account = frappe.db.get_list("Account", filters={"account_name": "Rent Security Deposit", "company": company.get('name')}, fields=['name'])[0]
+		for item in items:
+			if item.get('name') == 'ITM-00007':
+				if not frappe.db.exists("Item Default", {'parent': item.get('name'), 'company': company.get('name')}):
+					#CREATE IF NOT EXISTING.
+					new_item_default = {
+						"doctype": "Item Default",
+						"parent": item.get('name'),
+						"company": company.get('name'),
+						"income_account": account.get('name'),
+						"parentfield": "item_defaults",
+						"parenttype": "Item"
+					}
+					frappe.get_doc(new_item_default).insert()
+				else:
 					for defaults in frappe.db.get_list('Item Default', filters={'parent': item.get('name'), 'company': company.get('name')}, fields={'*'}):
 						frappe.db.set_value('Item Default', defaults.get('name'), 'income_account', account.get('name'))
-	

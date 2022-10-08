@@ -107,6 +107,7 @@
   {
    "fieldname": "advance_paid_amount",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Advance Paid Amount"
   },
   {
@@ -140,12 +141,14 @@
   {
    "fieldname": "ewa_limit",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "EWA Limit"
   },
   {
    "default": "0",
    "fieldname": "is_ewa_inclusive",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Is EWA Inclusive"
   },
   {
@@ -264,13 +267,13 @@
    "default": "0",
    "fieldname": "deposit_received",
    "fieldtype": "Check",
-   "label": "Deposit Received",
+   "label": "Deposit Invoiced",
    "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-05 11:18:45.688819",
+ "modified": "2022-10-08 10:51:37.828721",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Rental Contract",

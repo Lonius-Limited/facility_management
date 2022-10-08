@@ -7,8 +7,8 @@ def get_status(status_conditions):
             return key
 
 
-def get_debit_to():
-    company = frappe.defaults.get_user_default('Company')
+def get_debit_to(company = None):
+    if not company: company = frappe.defaults.get_user_default('Company')
     return frappe.db.get_value('Company', company, 'default_receivable_account')
 
 

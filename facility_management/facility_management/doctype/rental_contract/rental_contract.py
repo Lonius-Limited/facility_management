@@ -41,6 +41,16 @@ class RentalContract(Document):
     def before_cancel(self):
         _delink_sales_invoices(self)
         _set_property_as_vacant(self)
+        
+    @frappe.whitelist()
+    def post_deposit_invoice(self):
+        if not self.deposit_received:
+            self.update({"items": _generate_deposit_item(self)})
+            self.db_set("deposit_received", 1, update_modified=True)
+            self.save()
+            _generate_invoices_now(self)
+        else:
+            frappe.throw(_("The deposit invoice was already posted and cannot be posted twice"))
 
 
 def _set_status(renting):
@@ -71,7 +81,19 @@ def _validate_property(renting):
     if rental_status == "Rented":
         frappe.throw(_("Please make choose unoccupied property."))
 
+def _generate_deposit_item(renting):
+    def make_deposit_item():
+        return {
+            "invoice_date": getdate(renting.start_invoice_date),
+            "description": "Security Deposit",
+            "is_invoice_created": 0,
+        }
+    items = renting.get('items')
 
+    items.append(make_deposit_item())
+    
+    return items
+    
 def _generate_items(renting):
     """
     Create items for succeeding dates
@@ -85,10 +107,18 @@ def _generate_items(renting):
             "description": "Rent Due",
             "is_invoice_created": 0,
         }
+    
+    def make_deposit_item():
+        return {
+            "invoice_date": getdate(renting.start_invoice_date),
+            "description": "Security Deposit",
+            "is_invoice_created": 0,
+        }
 
     items = []
 
     if _get_invoice_on_start_date():
+        items.append(make_deposit_item())
         items.append(make_item(renting.start_invoice_date))
 
     end_date = getdate(renting.contract_end_date)
@@ -110,6 +140,8 @@ def _generate_invoices_now(renting):
     def make_data(item_data):
         # print(renting.cost_center)
         cost_center = frappe.get_doc('Company', renting.company).get('cost_center')
+        item_to_invoice = deposit_item if item_data.description == "Security Deposit" else rental_item
+        amount_to_invoice = renting.deposit_amount if item_data.description == "Security Deposit" else renting.rental_amount
         return {
             "customer": customer,
             "due_date": item_data.invoice_date,
@@ -122,7 +154,7 @@ def _generate_invoices_now(renting):
             "cost_center": cost_center,
             # "territory": renting.cost_center,
             "items": [
-                {"item_code": rental_item, "rate": renting.rental_amount, "qty": 1, "cost_center": cost_center}
+                {"item_code": item_to_invoice, "rate": amount_to_invoice, "qty": 1, "cost_center": cost_center}
             ],
         }
 
@@ -135,23 +167,27 @@ def _generate_invoices_now(renting):
     rental_item = frappe.db.get_single_value(
         "Facility Management Settings", "rental_item"
     )
+    deposit_item = frappe.db.get_single_value(
+        "Facility Management Settings", "deposit_item"
+    )
     submit_si = frappe.db.get_single_value("Facility Management Settings", "submit_si")
-    debit_to = get_debit_to()
+    debit_to = get_debit_to(renting.company)
 
     for item in items:
-        invoice_data = make_data(item)
-        items = invoice_data.pop("items")
+        if not item.is_invoice_created:
+            invoice_data = make_data(item)
+            items = invoice_data.pop("items")
 
-        invoice = frappe.new_doc("Sales Invoice")
-        invoice.update(invoice_data)
-        invoice.append("items", items[0])
-        invoice.set_missing_values()
-        invoice.save(ignore_permissions=True)
+            invoice = frappe.new_doc("Sales Invoice")
+            invoice.update(invoice_data)
+            invoice.append("items", items[0])
+            invoice.set_missing_values()
+            invoice.save(ignore_permissions=True)
 
-        if submit_si:
-            invoice.submit()
+            if submit_si:
+                invoice.submit()
 
-        set_invoice_created(item.name, invoice.name)
+            set_invoice_created(item.name, invoice.name)
 
 
 def _update_items(renting):

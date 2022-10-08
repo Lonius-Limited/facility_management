@@ -13,6 +13,7 @@ frappe.ui.form.on('Rental Contract', {
   },
   refresh: function (frm) {
     _add_payment_entry(frm);
+    _add_invoice_deposit(frm);
     _add_cancel_btn(frm);
     _set_items_read_only(frm);
   },
@@ -20,6 +21,25 @@ frappe.ui.form.on('Rental Contract', {
     _set_start_invoice_date(frm);
   },
 });
+
+function _add_invoice_deposit(frm) {
+  if (frm.doc.docstatus !== 0 && frm.doc.deposit_received !== 1) {
+    frm.add_custom_button(__('Invoice Deposit'), function () {
+      frm.call('post_deposit_invoice', {})
+      .then(r => {
+        if (r.message) {
+          let linked_doc = r.message;
+          // do something with linked_doc
+        }
+        frappe.show_alert({
+          message:__('The deposit invoice has been posted successfully.'),
+          indicator:'green'
+        }, 5);
+        frm.refresh();
+      })
+    });
+  }
+}
 
 function _add_payment_entry(frm) {
   if (frm.doc.docstatus !== 0) {
