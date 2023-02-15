@@ -8,8 +8,9 @@ app_publisher = "9T9IT"
 app_description = "ERPNext app for managing facilities"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
-app_email = "info@9t9it.com"
+app_email = "info@lonius.co.ke"
 app_license = "MIT"
+required_apps = ["hrms"]
 
 fixtures = [
     {
