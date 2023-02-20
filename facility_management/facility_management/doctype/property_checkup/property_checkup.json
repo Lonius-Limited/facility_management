@@ -7,12 +7,22 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "contract",
   "property",
   "tenant",
+  "company",
+  "rent_deposit",
   "column_break_4",
   "posting_date",
   "checkup_type",
+  "customer",
+  "balance",
   "cost_center",
+  "chargebill_client_section",
+  "sales_items",
+  "section_break_13",
+  "column_break_14",
+  "total_billed",
   "section_break_7",
   "items",
   "section_break_9",
@@ -22,23 +32,28 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "PC-.#####"
   },
   {
+   "fetch_from": "contract.property_group",
    "fieldname": "property",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Property",
    "options": "Property",
+   "read_only": 1,
    "reqd": 1
   },
   {
+   "fetch_from": "contract.tenant",
    "fieldname": "tenant",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Tenant",
    "options": "Tenant Master",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -55,7 +70,8 @@
    "fieldname": "checkup_type",
    "fieldtype": "Select",
    "label": "Checkup Type",
-   "options": "Check-In\nCheck-Out"
+   "options": "Check-Out\nCheck-In",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_7",
@@ -83,13 +99,78 @@
    "label": "Cost Center",
    "options": "Cost Center",
    "read_only": 1
+  },
+  {
+   "fieldname": "contract",
+   "fieldtype": "Link",
+   "label": "Contract",
+   "options": "Rental Contract"
+  },
+  {
+   "depends_on": "eval:doc.checkup_type == 'Check-Out';",
+   "fieldname": "chargebill_client_section",
+   "fieldtype": "Section Break",
+   "label": "Charge/Bill Client"
+  },
+  {
+   "depends_on": "eval:doc.checkup_type == \"Check-Out\";",
+   "fieldname": "sales_items",
+   "fieldtype": "Table",
+   "label": "Charge/Bill Items",
+   "options": "Property Checkup Sale Item"
+  },
+  {
+   "fetch_from": "tenant.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Currency",
+   "label": "Outstanding Balance",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.checkup_type == 'Check-Out';",
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.checkup_type == 'Check-Out';",
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.checkup_type == 'Check-Out';",
+   "fieldname": "total_billed",
+   "fieldtype": "Currency",
+   "label": "Total Billed",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "contract.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "rent_deposit",
+   "fieldtype": "Currency",
+   "label": "Rent Deposit",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2022-07-01 16:07:04.915494",
+ "modified": "2023-02-21 00:21:10.629392",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property Checkup",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -119,5 +200,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

@@ -111,6 +111,7 @@
    "label": "Advance Paid Amount"
   },
   {
+   "fetch_from": "property.deposit_rate",
    "fieldname": "deposit_amount",
    "fieldtype": "Currency",
    "label": "Deposit Amount"
@@ -216,6 +217,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "reason_for_cancellation",
    "fieldtype": "Data",
    "label": "Reason for Cancellation",
@@ -273,7 +275,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-08 10:51:37.828721",
+ "modified": "2023-02-19 22:53:59.615543",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Rental Contract",
@@ -309,9 +311,10 @@
    "write": 1
   }
  ],
- "search_fields": "title",
+ "search_fields": "title, tenant, tenant_name, property",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "title",
  "track_changes": 1
 }

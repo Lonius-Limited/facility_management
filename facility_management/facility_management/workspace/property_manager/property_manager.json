@@ -1,11 +1,6 @@
 {
- "charts": [
-  {
-   "chart_name": "Outgoing Bills (Sales Invoice)",
-   "label": "Rental Sales"
-  }
- ],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Property Manager</span>\",\"col\":12}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Rent Sales\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property/Building\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units/House - Rented\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units/Houses - Vacant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Tenant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rental Contract\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Landlord/Agents\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rent Sales\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Utility Bills\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tentant Receipts\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Income Report\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Expense Claims/Petty Cash\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendors/Suppliers\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Invoices\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payments Out\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Checkout/Checkin\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Inventory\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Maintenance\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tenant Violation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Facility Settings\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Vacant Units\",\"col\":4}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Rented Units\",\"col\":4}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Payments\",\"col\":4}},{\"type\":\"spacer\",\"data\":{\"col\":12}}]",
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Property Manager</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property/Building\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units/House - Rented\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units/Houses - Vacant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tenant Master\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Tenant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contracts\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Landlord/Agents\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rent Sales\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Utility Bills\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tentant Receipts\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Income Report\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Expense Claims/Petty Cash\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendors/Suppliers\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Invoices\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payments Out\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Checkout/Checkin\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Inventory\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Maintenance\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tenant Violation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Facility Settings\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Vacant Units\",\"col\":4}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Rented Units\",\"col\":4}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Payments\",\"col\":4}},{\"type\":\"spacer\",\"data\":{\"col\":12}}]",
  "creation": "2023-02-15 12:31:48.405603",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -15,7 +10,7 @@
  "idx": 0,
  "label": "Property Manager",
  "links": [],
- "modified": "2023-02-15 13:26:09.644215",
+ "modified": "2023-02-15 23:22:47.776649",
  "modified_by": "info@lonius.co.ke",
  "module": "Facility Management",
  "name": "Property Manager",
@@ -47,7 +42,25 @@
  "sequence_id": 1.0,
  "shortcuts": [
   {
-   "color": "Blue",
+   "color": "Pink",
+   "doc_view": "List",
+   "format": "{} Tenants",
+   "label": "Tenant Master",
+   "link_to": "Tenant Master",
+   "stats_filter": "{\"cr_no\":[\"not like\",\"%Nothing%\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "Contracts",
+   "link_to": "Rental Contract",
+   "stats_filter": "{\"docstatus\":[\"=\",\"1\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
    "doc_view": "List",
    "format": "{} Rented",
    "label": "Units/House - Rented",
@@ -56,11 +69,12 @@
    "type": "DocType"
   },
   {
-   "color": "Green",
+   "color": "Yellow",
    "doc_view": "List",
    "format": "{} Active",
-   "label": "Property/Building",
-   "link_to": "Real Estate Property",
+   "label": "Landlord/Agents",
+   "link_to": "Landlord",
+   "stats_filter": "{\"email\":[\"not like\",\"%empty%\"]}",
    "type": "DocType"
   },
   {
@@ -70,6 +84,15 @@
    "label": "Utility Bills",
    "link_to": "Utility Bills",
    "stats_filter": "{\"docstatus\":[\"=\",\"1\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "Property/Building",
+   "link_to": "Real Estate Property",
+   "stats_filter": "{\"title\":[\"not like\",\"%nothing%\"]}",
    "type": "DocType"
   },
   {
@@ -109,23 +132,6 @@
    "doc_view": "List",
    "label": "Expense Claims/Petty Cash",
    "link_to": "Expense Claim",
-   "type": "DocType"
-  },
-  {
-   "color": "Pink",
-   "doc_view": "List",
-   "format": "{} Active Contracts",
-   "label": "Rental Contract",
-   "link_to": "Rental Contract",
-   "stats_filter": "{\"docstatus\":[\"=\",\"1\"]}",
-   "type": "DocType"
-  },
-  {
-   "color": "Yellow",
-   "doc_view": "List",
-   "format": "{} Registered",
-   "label": "Landlord/Agents",
-   "link_to": "Landlord",
    "type": "DocType"
   },
   {

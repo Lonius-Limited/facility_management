@@ -39,6 +39,7 @@ class RentalContract(Document):
         _update_items(self)
 
     def before_cancel(self):
+        self.db_set("status", "Cancelled", update_modified=False)
         _delink_sales_invoices(self)
         _set_property_as_vacant(self)
         

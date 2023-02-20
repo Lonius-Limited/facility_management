@@ -227,6 +227,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "TEN-"
   },
@@ -256,10 +257,11 @@
   }
  ],
  "links": [],
- "modified": "2022-10-04 14:07:07.611893",
+ "modified": "2023-02-20 22:37:15.008766",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Tenant Master",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -290,6 +292,7 @@
  "search_fields": "tenant_name,mobile_no,mobile_no_2,email,cpr",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "tenant_name",
  "track_changes": 1
 }

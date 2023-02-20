@@ -65,7 +65,7 @@ function _add_cancel_btn(frm) {
   if (frm.doc.docstatus === 1) {
     // remove cancel button and add contract disable
     setTimeout(function () {
-      frm.page.set_secondary_action('Contract Disable', function () {
+      frm.page.set_secondary_action('End Contract', function () {
         frappe.prompt(
           [
             {
@@ -88,6 +88,7 @@ function _add_cancel_btn(frm) {
                 'reason_for_cancellation',
                 values.reason_for_cancellation,
               );
+              frm.savesubmit();
             } else {
               frm.savecancel();
             }
