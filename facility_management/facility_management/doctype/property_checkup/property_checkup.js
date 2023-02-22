@@ -1,16 +1,23 @@
 // Copyright (c) 2020, 9T9IT and contributors
 // For license information, please see license.txt
+
 {% include "facility_management/facility_management/doctype/property_checkup/property_checkup_data.js" %}
 
 frappe.ui.form.on('Property Checkup', {
 	onload_post_render: function(frm) {
-        frm.call('tenant_deposit', {})
+        frm.call('get_net_tenant_deposit', {})
         .then(r => {
             if (r.message) {
                 frm.set_value("rent_deposit", r.message);
                 refresh_field('rent_deposit');
             }
         })
+
+        // frappe.call('facility_management.helpers.set_all_property_as_vacant', {
+        //     contract: frm.doc.contract
+        // }).then(r => {
+        //     console.log(r.message)
+        // })
 	},
 	property: async function(frm) {
 	    _fetch_items(frm);
@@ -30,6 +37,7 @@ frappe.ui.form.on('Property Checkup Sale Item', {
         _calculate_amount(frm, d,  cdt, cdn);
     }
 });
+
 async function _fetch_items(frm) {
     const property = frm.doc.property;
     const items = await get_items(property);
