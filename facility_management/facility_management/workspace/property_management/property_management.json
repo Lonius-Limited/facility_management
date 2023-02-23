@@ -1,171 +1,216 @@
 {
- "category": "Modules",
  "charts": [
   {
    "chart_name": "Outgoing Bills (Sales Invoice)",
    "label": "Rent Sales"
   }
  ],
- "creation": "2022-05-11 16:59:27.197192",
- "developer_mode_only": 0,
- "disable_user_customization": 1,
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Property Manager</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property/Building\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units/House - Rented\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units/Houses - Vacant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tenant Master\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Tenant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contracts\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Landlord/Agents\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rent Sales\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Utility Bills\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tentant Receipts\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Income Report\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Expense Claims/Petty Cash\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendors/Suppliers\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Invoices\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payments Out\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Checkout/Checkin\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Inventory\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Maintenance\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tenant Violation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Facility Settings\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Vacant Units\",\"col\":4}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Rented Units\",\"col\":4}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Payments\",\"col\":4}},{\"type\":\"spacer\",\"data\":{\"col\":12}}]",
+ "creation": "2023-02-15 12:31:48.405603",
  "docstatus": 0,
  "doctype": "Workspace",
- "extends_another_page": 0,
+ "for_user": "",
  "hide_custom": 0,
- "icon": "assets",
+ "icon": "organization",
  "idx": 0,
- "is_default": 0,
- "is_standard": 1,
+ "is_hidden": 0,
  "label": "Property Management",
  "links": [],
- "modified": "2022-10-04 14:17:51.781582",
+ "modified": "2023-02-23 10:53:01.411034",
  "modified_by": "info@lonius.co.ke",
  "module": "Facility Management",
  "name": "Property Management",
- "owner": "Administrator",
- "pin_to_bottom": 0,
- "pin_to_top": 1,
+ "owner": "info@lonius.co.ke",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Property",
+   "label": "Vacant Units",
+   "quick_list_filter": "{\"rental_status\":[\"=\",\"Vacant\"]}"
+  },
+  {
+   "document_type": "Property",
+   "label": "Rented Units",
+   "quick_list_filter": "{\"rental_status\":[\"=\",\"Rented\"]}"
+  },
+  {
+   "document_type": "Payment Entry",
+   "label": "Payments",
+   "quick_list_filter": "{\"payment_type\":[\"=\",\"Receive\"]}"
+  }
+ ],
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "sequence_id": 1.0,
  "shortcuts": [
   {
-   "color": "#449CF0",
+   "color": "Pink",
    "doc_view": "List",
-   "format": "{} Active properties",
+   "format": "{} Tenants",
+   "label": "Tenant Master",
+   "link_to": "Tenant Master",
+   "stats_filter": "{\"cr_no\":[\"not like\",\"%Nothing%\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "Contracts",
+   "link_to": "Rental Contract",
+   "stats_filter": "{\"docstatus\":[\"=\",\"1\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "format": "{} Rented",
+   "label": "Units/House - Rented",
+   "link_to": "Property",
+   "stats_filter": "{\"rental_status\":[\"=\",\"Rented\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Yellow",
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "Landlord/Agents",
+   "link_to": "Landlord",
+   "stats_filter": "{\"email\":[\"not like\",\"%empty%\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "format": "{} Bills",
+   "label": "Utility Bills",
+   "link_to": "Utility Bills",
+   "stats_filter": "{\"docstatus\":[\"=\",\"1\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "format": "{} Active",
    "label": "Property/Building",
    "link_to": "Real Estate Property",
-   "stats_filter": "{\n    \"property_name\":[\"!=\",\"\"]\n}",
+   "stats_filter": "{\"title\":[\"not like\",\"%nothing%\"]}",
    "type": "DocType"
   },
   {
-   "color": "#2e55b8",
+   "color": "Red",
    "doc_view": "List",
    "format": "{} Vacant",
-   "label": "Units/House",
+   "label": "Units/Houses - Vacant",
    "link_to": "Property",
-   "stats_filter": "{\n    \"rental_status\": \"Vacant\"\n}",
+   "stats_filter": "{\"rental_status\":[\"=\",\"Vacant\"]}",
    "type": "DocType"
   },
   {
-   "color": "#9fed55",
+   "color": "Green",
+   "doc_view": "List",
+   "format": "{} Received",
+   "label": "Tentant Receipts",
+   "link_to": "Payment Entry",
+   "stats_filter": "{\"payment_type\":[\"=\",\"Receive\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
    "doc_view": "New",
-   "format": "{} Tenants",
    "label": "New Tenant",
    "link_to": "Tenant Master",
    "type": "DocType"
   },
   {
-   "color": "#122fb0",
-   "doc_view": "List",
-   "format": "{} Active",
-   "label": "Rental Contracts",
-   "link_to": "Rental Contract",
-   "stats_filter": "{\n    \"status\": \"Active\"\n}",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Landlord Master List",
-   "link_to": "Landlord",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "format": "{} Unpaid",
-   "label": "Tenant Monthly Invoices",
-   "link_to": "Sales Invoice",
-   "stats_filter": "{\n    \"docstatus\":1,\n    \"status\":[\"!=\",\"Paid\"]\n}",
-   "type": "DocType"
-  },
-  {
-   "color": "#761ACB",
-   "doc_view": "List",
-   "format": "{} Posted",
-   "label": "Utility Bills",
-   "link_to": "Utility Bills",
-   "restrict_to_domain": "",
-   "stats_filter": "{\n    \"docstatus\": 1\n}",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Tenant Receipts",
-   "link_to": "Payment Entry",
-   "stats_filter": "{\n    \"payment_type\":\"Receive\"\n}",
-   "type": "DocType"
-  },
-  {
+   "color": "Grey",
    "doc_view": "List",
    "label": "Income Report",
    "link_to": "Accounts Receivable",
    "type": "Report"
   },
   {
+   "color": "Grey",
    "doc_view": "List",
    "label": "Expense Claims/Petty Cash",
    "link_to": "Expense Claim",
-   "stats_filter": "",
    "type": "DocType"
   },
   {
-   "color": "#800909",
+   "color": "Cyan",
    "doc_view": "List",
    "format": "{} Active",
-   "label": "My Vendors",
+   "label": "Vendors/Suppliers",
    "link_to": "Supplier",
-   "stats_filter": "{\n    \"disabled\":false\n}",
+   "stats_filter": "{\"disabled\":[\"=\",0]}",
    "type": "DocType"
   },
   {
-   "color": "#5d0da8",
+   "color": "Blue",
    "doc_view": "List",
+   "format": "{} Posted Invoices",
+   "label": "Rent Sales",
+   "link_to": "Sales Invoice",
+   "stats_filter": "{\"docstatus\":[\"=\",\"1\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "format": "{} Pending",
    "label": "Vendor Invoices",
    "link_to": "Purchase Invoice",
+   "stats_filter": "{\"docstatus\":[\"=\",\"0\"]}",
    "type": "DocType"
   },
   {
+   "color": "Pink",
    "doc_view": "List",
-   "format": "{} Approved",
-   "label": "Payments",
+   "format": "{} Pending",
+   "label": "Payments Out",
    "link_to": "Payment Entry",
-   "stats_filter": "{\n    \"docstatus\":1,\n    \"payment_type\":\"Pay\"\n}",
+   "stats_filter": "{\"payment_type\":[\"=\",\"Pay\"],\"docstatus\":[\"=\",\"0\"]}",
    "type": "DocType"
   },
   {
+   "color": "Grey",
    "doc_view": "List",
-   "label": "Property Checkin/Checkout",
+   "label": "Checkout/Checkin",
    "link_to": "Property Checkup",
    "type": "DocType"
   },
   {
+   "color": "Grey",
    "doc_view": "List",
    "label": "Property Inventory",
    "link_to": "Property Inventory",
    "type": "DocType"
   },
   {
+   "color": "Grey",
    "doc_view": "List",
    "label": "Property Maintenance",
    "link_to": "Property Maintenance",
    "type": "DocType"
   },
   {
+   "color": "Grey",
    "doc_view": "List",
    "label": "Tenant Violation",
    "link_to": "Tenant Violation",
    "type": "DocType"
   },
   {
-   "doc_view": "Dashboard",
-   "label": "Summary Dashboard",
-   "link_to": "Facility Management",
-   "type": "Dashboard"
-  },
-  {
-   "doc_view": "",
-   "label": "Rental Settings",
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Facility Settings",
    "link_to": "Facility Management Settings",
    "type": "DocType"
   }
  ],
- "shortcuts_label": "Property Management "
+ "title": "Property Management"
 }

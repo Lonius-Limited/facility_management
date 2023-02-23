@@ -13,76 +13,76 @@ app_license = "MIT"
 required_apps = ["hrms"]
 
 fixtures = [
-    {
-        "doctype": "Custom Field",
-        "filters": [
-            [
-                "name",
-                "in",
-                [
-                    "Expense Claim-pm_property_maintenance",
-                    "Material Request-pm_property_maintenance",
-                    "Asset Repair-pm_property_maintenance",
-                    "Sales Invoice-pm_rental_contract",
-                    "Sales Invoice-pm_property_sb",
-                    "Sales Invoice-pm_property",
-                    "Sales Invoice-pm_tenant",
-                    "Sales Invoice-pm_property_group"
-                ]
-            ]
-        ]
-    },
-    {
-        "doctype": "Property Setter",
-        "filters": [
-            [
-                "name",
-                "in",
-                [
-                    "Dashboard Chart-type-options"
-                ]
-            ]
-        ]
-    },
-    {
-        "doctype": "Item",
-        "filters": [
-            [
-                "name",
-                "in",
-                [
-                    "ITM-00001", "ITM-00002", "ITM-00003", "ITM-00004", "ITM-00005", "ITM-00006", "ITM-00007"
-                ]
-            ]
-        ]
-    },
-    {
-        "doctype": "Account",
-        "filters": [
-            [
-                "account_number",
-                "in",
-                [
-                    "2130"
-                ]
-            ]
-        ]
-    },
-    {
-        "doctype": "Dashboard Chart",
-        "filters": [
-            [
-                "name",
-                "in",
-                [
-                    "Rental Value",
-                    "Rental Revenue",
-                    "Rental Billing",
-                    "Rental Property Occupancy"
-                ]
-            ]
-        ]
-    }
+	{
+		"doctype": "Custom Field",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Expense Claim-pm_property_maintenance",
+					"Material Request-pm_property_maintenance",
+					"Asset Repair-pm_property_maintenance",
+					"Sales Invoice-pm_rental_contract",
+					"Sales Invoice-pm_property_sb",
+					"Sales Invoice-pm_property",
+					"Sales Invoice-pm_tenant",
+					"Sales Invoice-pm_property_group"
+				]
+			]
+		]
+	},
+	{
+		"doctype": "Property Setter",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Dashboard Chart-type-options"
+				]
+			]
+		]
+	},
+	{
+		"doctype": "Item",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"ITM-00001", "ITM-00002", "ITM-00003", "ITM-00004", "ITM-00005", "ITM-00006", "ITM-00007"
+				]
+			]
+		]
+	},
+	{
+		"doctype": "Account",
+		"filters": [
+			[
+				"account_number",
+				"in",
+				[
+					"2130"
+				]
+			]
+		]
+	},
+	{
+		"doctype": "Dashboard Chart",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Rental Value",
+					"Rental Revenue",
+					"Rental Billing",
+					"Rental Property Occupancy"
+				]
+			]
+		]
+	}
 ]
 # Includes in <head>
 # ------------------
@@ -100,8 +100,8 @@ page_js = {"dashboard": "public/js/dashboard.js"}
 
 # include js in doctype views
 doctype_js = {
-    "Sales Invoice": "public/js/scripts/sales_invoice.js",
-    "Payment Entry": "public/js/scripts/payment_entry.js"
+	"Sales Invoice": "public/js/scripts/sales_invoice.js",
+	"Payment Entry": "public/js/scripts/payment_entry.js"
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -132,7 +132,11 @@ website_generators = ["Landlord"]
 
 # before_install = "facility_management.install.before_install"
 # after_install = "facility_management.install.after_install"
-# after_migrate = "facility_management.retain_workspace"
+after_migrate = [
+	"facility_management.patches.v0_1.add_initial_violation_categories1.execute",
+	"facility_management.patches.v0_4.remove_pm_tenant_renting1.execute",
+	"facility_management.patches.v0_14.rental_deposit_and_items_patch1.execute"
+]
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
@@ -156,19 +160,19 @@ website_generators = ["Landlord"]
 # Hook on document methods and events
 
 doc_events = {
-    "Sales Invoice": {
-        "validate": "facility_management.doc_events.sales_invoice.validate",
-    }
+	"Sales Invoice": {
+		"validate": "facility_management.doc_events.sales_invoice.validate",
+	}
 }
 
 # Scheduled Tasks
 # ---------------
 
 scheduler_events = {
-    "daily": [
-        "facility_management.events.create_invoice.execute",
-        "facility_management.events.cancel_rental_contract.execute"
-    ]
+	"daily": [
+		"facility_management.events.create_invoice.execute",
+		"facility_management.events.cancel_rental_contract.execute"
+	]
 }
 
 # Testing
@@ -184,8 +188,8 @@ scheduler_events = {
 # }
 
 jenv = {
-    "methods": [
-        "get_landlord_details:facility_management.api.tenant_renting.get_landlord_details",
-        "get_tenant_details:facility_management.api.tenant_renting.get_tenant_details"
-    ]
+	"methods": [
+		"get_landlord_details:facility_management.api.tenant_renting.get_landlord_details",
+		"get_tenant_details:facility_management.api.tenant_renting.get_tenant_details"
+	]
 }
