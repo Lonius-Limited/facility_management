@@ -4,26 +4,15 @@
 {% include "facility_management/facility_management/doctype/property_checkup/property_checkup_data.js" %}
 
 frappe.ui.form.on('Property Checkup', {
-	onload_post_render: function(frm) {
-        frm.call('get_net_tenant_deposit', {})
-        .then(r => {
-            if (r.message) {
-                frm.set_value("rent_deposit", r.message);
-                refresh_field('rent_deposit');
-            }
-        })
-
-        // frappe.call('facility_management.helpers.set_all_property_as_vacant', {
-        //     contract: frm.doc.contract
-        // }).then(r => {
-        //     console.log(r.message)
-        // })
-	},
 	property: async function(frm) {
-	    _fetch_items(frm);
+        if (frm.doc.property !='') {
+            _fetch_items(frm);
+        }
 	},
     contract: function(frm) {
-        _get_customer_balance(frm)
+        if (frm.doc.contract !='') {
+            _get_customer_balance(frm)
+        }
     }
 });
 
@@ -55,25 +44,53 @@ function _calculate_amount(frm, d,  cdt, cdn) {
     frm.doc.sales_items.forEach(function(d) { total += d.amount; });
     frm.set_value("total_billed", total);
     refresh_field("total_billed");
+
+    var balance = frm.doc.balance;
+    var to_pay = (-1 *balance) + parseFloat(total)
+    var to_refund = ((-1 *balance) + parseFloat(total)) * -1
+    frm.set_value("tenant_pays_amount", to_pay);
+    frm.refresh_field('tenant_pays_amount');
+    frm.set_value("tenant_refunds_amount", to_refund);
+    frm.refresh_field('tenant_refunds_amount');
 }
 
 function _get_customer_balance(frm) {
     //GET DEPOSIT
-    _get_the_deposit(frm);
-    var paid_deposit = frm.doc.rent_deposit
-    //GET BALANCE ON CUSTOMER ACCOUNT
-    return frappe.call({
-		method: "erpnext.accounts.utils.get_balance_on",
-		args: {date: frm.doc.posting_date, party_type: 'Customer', party: frm.doc.customer},
-		callback: function(r) {
-            console.log('Balance: ' + (parseFloat(paid_deposit) - parseFloat(r.message)));
-			//frm.set_value("balance" ,format_currency(r.message, erpnext.get_currency(frm.doc.company)));
-            frm.set_value("balance", (parseFloat(paid_deposit) - parseFloat(r.message)));
-			refresh_field('balance');
-		}
-	});
+    frm.call('get_net_tenant_deposit', {})
+    .then(r_deposit => {
+        if (r_deposit.message) {
+            frm.set_value("rent_deposit", r_deposit.message);
+            frm.refresh_field('rent_deposit');
+            var paid_deposit = r_deposit.message; //frm.doc.rent_deposit
+            //GET BALANCE ON CUSTOMER ACCOUNT
+            return frappe.call({
+                method: "erpnext.accounts.utils.get_balance_on",
+                args: {date: frm.doc.posting_date, party_type: 'Customer', party: frm.doc.customer},
+                callback: function(r) {
+                    var balance = parseFloat(paid_deposit) - parseFloat(r.message)
+                    console.log('Balance: ' + balance);
+                    //frm.set_value("balance" ,format_currency(r.message, erpnext.get_currency(frm.doc.company)));
+                    frm.set_value("balance", balance);
+                    frm.refresh_field('balance'); 
+
+                    var to_pay = (-1 *balance) + parseFloat(frm.doc.total_billed)
+                    var to_refund = ((-1 *balance) + parseFloat(frm.doc.total_billed)) * -1
+                    frm.set_value("tenant_pays_amount", to_pay);
+                    frm.refresh_field('tenant_pays_amount');
+                    frm.set_value("tenant_refunds_amount", to_refund);
+                    frm.refresh_field('tenant_refunds_amount');
+                }
+            });
+        }
+    })
 }
 
 function _get_the_deposit(frm) {
-    
+    frm.call('get_net_tenant_deposit', {})
+    .then(r => {
+        if (r.message) {
+            frm.set_value("rent_deposit", r.message);
+            frm.refresh_field('rent_deposit');
+        }
+    })
 }

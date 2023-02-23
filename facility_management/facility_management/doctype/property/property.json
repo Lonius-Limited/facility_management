@@ -103,7 +103,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Rental Status",
-   "options": "\nRented\nVacant"
+   "options": "Vacant\nRented"
   },
   {
    "fieldname": "rental_frequency",
@@ -268,7 +268,7 @@
   }
  ],
  "links": [],
- "modified": "2023-02-20 22:37:52.127865",
+ "modified": "2023-02-23 11:15:04.451105",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property",

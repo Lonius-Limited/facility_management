@@ -31,15 +31,13 @@
   "advance_paid_amount",
   "deposit_amount",
   "deposit_received",
-  "section_break_9",
   "rental_frequency",
   "rental_amount",
-  "column_break_16",
-  "ewa_limit",
-  "is_ewa_inclusive",
   "section_break_20",
   "items",
   "section_break_11",
+  "is_ewa_inclusive",
+  "ewa_limit",
   "terms_and_conditions_template",
   "terms_and_conditions"
  ],
@@ -117,10 +115,6 @@
    "label": "Deposit Amount"
   },
   {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
-  },
-  {
    "fetch_from": "property.rental_frequency",
    "fieldname": "rental_frequency",
    "fieldtype": "Select",
@@ -134,10 +128,6 @@
    "fieldtype": "Currency",
    "label": "Rental Amount",
    "reqd": 1
-  },
-  {
-   "fieldname": "column_break_16",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "ewa_limit",
@@ -275,7 +265,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-19 22:53:59.615543",
+ "modified": "2023-02-23 11:21:44.047882",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Rental Contract",

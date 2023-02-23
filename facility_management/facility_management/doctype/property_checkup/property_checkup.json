@@ -16,13 +16,17 @@
   "posting_date",
   "checkup_type",
   "customer",
-  "balance",
   "cost_center",
+  "outstanding_rent",
+  "balance",
   "chargebill_client_section",
   "sales_items",
   "section_break_13",
   "column_break_14",
   "total_billed",
+  "column_break_jwxtb",
+  "tenant_refunds_amount",
+  "tenant_pays_amount",
   "section_break_7",
   "items",
   "section_break_9",
@@ -128,9 +132,10 @@
    "read_only": 1
   },
   {
+   "description": "Negative amount means the tenant has some amount on their account not yet paid ",
    "fieldname": "balance",
    "fieldtype": "Currency",
-   "label": "Outstanding Balance",
+   "label": "Tenant Account Balance",
    "read_only": 1
   },
   {
@@ -147,7 +152,7 @@
    "depends_on": "eval:doc.checkup_type == 'Check-Out';",
    "fieldname": "total_billed",
    "fieldtype": "Currency",
-   "label": "Total Billed",
+   "label": "Total Billed/Charged on Checkout",
    "read_only": 1
   },
   {
@@ -163,10 +168,36 @@
    "fieldtype": "Currency",
    "label": "Rent Deposit",
    "read_only": 1
+  },
+  {
+   "fieldname": "outstanding_rent",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Outstanding Rent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jwxtb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:((-1*doc.total_billed) + doc.balance)>=0",
+   "fieldname": "tenant_refunds_amount",
+   "fieldtype": "Currency",
+   "label": "Amount to Refund",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "depends_on": "eval:((-1*doc.total_billed) + doc.balance)<0",
+   "fieldname": "tenant_pays_amount",
+   "fieldtype": "Currency",
+   "label": "Tentant to Pay",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2023-02-21 00:21:10.629392",
+ "modified": "2023-02-23 14:17:01.550141",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property Checkup",
