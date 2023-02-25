@@ -30,7 +30,8 @@
   "section_break_7",
   "items",
   "section_break_9",
-  "checkup_description"
+  "checkup_description",
+  "amended_from"
  ],
  "fields": [
   {
@@ -194,10 +195,20 @@
    "fieldtype": "Currency",
    "label": "Tentant to Pay",
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Property Checkup",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
+ "is_submittable": 1,
  "links": [],
- "modified": "2023-02-23 14:17:01.550141",
+ "modified": "2023-02-23 14:24:49.531650",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property Checkup",
@@ -214,6 +225,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
@@ -226,6 +238,7 @@
    "report": 1,
    "role": "Sales Master Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
