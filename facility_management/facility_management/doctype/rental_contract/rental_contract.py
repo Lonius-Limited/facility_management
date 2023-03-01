@@ -237,8 +237,8 @@ def _set_property_as_vacant(renting):
 	if not retain_rental_on_cancel:
 		frappe.db.set_value("Property", renting.property, "rental_status", "Vacant")
 
-def _cancel_post_contract_invoices(renting= 'KH-House 1A-001'):
-	renting = frappe.get_doc('Rental Contract', renting)
+def _cancel_post_contract_invoices(renting):
+	# renting = frappe.get_doc('Rental Contract', renting)
 	contract_invoices = frappe.get_all(
 		"Rental Contract Item",
 		filters={"description": "Rent Due", "parent": renting.get('name')}, 
