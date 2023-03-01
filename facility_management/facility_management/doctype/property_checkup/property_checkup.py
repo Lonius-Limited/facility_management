@@ -38,7 +38,7 @@ def _post_rent_deposit_credit_note(self):
 	)
 	if all_deposits and all_deposits[0]:
 		invoice_ref = all_deposits[0].get("invoice_ref")
-		if frappe.get_doc('Sales Invoice', invoice_ref).get('status') !== 'Credit Note Issued':
+		if frappe.get_doc('Sales Invoice', invoice_ref).get('status') != 'Credit Note Issued':
 			from erpnext.controllers.sales_and_purchase_return import make_return_doc
 			target_doc=None
 			return_invoice_doc = make_return_doc("Sales Invoice", invoice_ref, target_doc)

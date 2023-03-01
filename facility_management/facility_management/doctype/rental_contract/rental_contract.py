@@ -247,7 +247,7 @@ def _cancel_post_contract_invoices(renting= 'KH-House 1A-001'):
 	for invoice in contract_invoices:
 		if (renting.cancellation_date < invoice.get("invoice_date")) and invoice.get("is_invoice_created"):
 			invoice_ref = invoice.get("invoice_ref")
-			if frappe.get_doc('Sales Invoice', invoice_ref).get('status') !== 'Credit Note Issued':
+			if frappe.get_doc('Sales Invoice', invoice_ref).get('status') != 'Credit Note Issued':
 				from erpnext.controllers.sales_and_purchase_return import make_return_doc
 				target_doc=None
 				return_invoice_doc = make_return_doc("Sales Invoice", invoice_ref, target_doc)
