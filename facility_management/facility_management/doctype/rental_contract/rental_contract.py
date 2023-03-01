@@ -41,7 +41,9 @@ class RentalContract(Document):
 	def before_cancel(self):
 		self.db_set("status", "Cancelled", update_modified=False)
 		_delink_sales_invoices(self)
+		_delink_property_checkups(self)
 		_set_property_as_vacant(self)
+		_cancel_post_contract_invoices(self)
 		
 	@frappe.whitelist()
 	def post_deposit_invoice(self):
@@ -221,6 +223,12 @@ def _delink_sales_invoices(renting):
 	for sales_invoice in sales_invoices:
 		frappe.db.set_value("Sales Invoice", sales_invoice, "pm_rental_contract", "")
 
+def _delink_property_checkups(renting):
+	property_checkups = frappe.get_all(
+		"Property Checkup", filters={"contract": renting.name}
+	)
+	for property_checkup in property_checkups:
+		frappe.db.set_value("Property Checkup", property_checkup, "contract", "")
 
 def _set_property_as_vacant(renting):
 	retain_rental_on_cancel = frappe.db.get_single_value(
@@ -229,6 +237,22 @@ def _set_property_as_vacant(renting):
 	if not retain_rental_on_cancel:
 		frappe.db.set_value("Property", renting.property, "rental_status", "Vacant")
 
+def _cancel_post_contract_invoices(renting= 'KH-House 1A-001'):
+	renting = frappe.get_doc('Rental Contract', renting)
+	contract_invoices = frappe.get_all(
+		"Rental Contract Item",
+		filters={"description": "Rent Due", "parent": renting.get('name')}, 
+		fields = ["invoice_ref", "invoice_date", "is_invoice_created"]
+	)
+	for invoice in contract_invoices:
+		if (renting.cancellation_date < invoice.get("invoice_date")) and invoice.get("is_invoice_created"):
+			invoice_ref = invoice.get("invoice_ref")
+			if frappe.get_doc('Sales Invoice', invoice_ref).get('status') !== 'Credit Note Issued':
+				from erpnext.controllers.sales_and_purchase_return import make_return_doc
+				target_doc=None
+				return_invoice_doc = make_return_doc("Sales Invoice", invoice_ref, target_doc)
+				return_invoice_doc.save()
+				return_invoice_doc.submit()
 
 def _get_next_date(date, frequency):
 	next_date = date

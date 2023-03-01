@@ -175,6 +175,10 @@ scheduler_events = {
 	]
 }
 
+auto_cancel_exempted_doctypes = [
+	"Property Checkup",
+]
+
 # Testing
 # -------
 

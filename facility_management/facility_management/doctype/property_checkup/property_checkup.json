@@ -130,7 +130,7 @@
    "fieldtype": "Link",
    "label": "Customer",
    "options": "Customer",
-   "read_only": 1
+   "reqd": 1
   },
   {
    "description": "Negative amount means the tenant has some amount on their account not yet paid ",
@@ -208,7 +208,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-23 14:24:49.531650",
+ "modified": "2023-03-01 13:28:36.354434",
  "modified_by": "Administrator",
  "module": "Facility Management",
  "name": "Property Checkup",
