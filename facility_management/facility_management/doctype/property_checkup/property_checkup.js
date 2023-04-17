@@ -56,20 +56,20 @@ function _calculate_amount(frm, d,  cdt, cdn) {
 
 function _get_customer_balance(frm) {
     //SOMETIMES THE CUSTOMER FIELD IS NOT SET FOR REASONS NOT WELL KNOWN! 
-    var this_customer = frm.doc.customer;
-    console.log ('Customer loaded: ' + this_customer)
-    if (this_customer == '' || this_customer == undefined){
+    // var this_customer = frm.doc.customer;
+    // console.log ('Customer loaded: ' + this_customer)
+    // if (this_customer == '' || this_customer == undefined){
         frappe.db.get_doc('Tenant Master', frm.doc.tenant)
         .then(doc => {
-            this_customer = doc.customer;
+            var this_customer = doc.customer;
             console.log('Customer from Tenant: ' + this_customer)
-            _set_net_customer_balance(frm, this_customer)
             frm.set_value("customer", this_customer);
             frm.refresh_field('customer');
+            _set_net_customer_balance(frm, this_customer)
         })
-    } else {
-        _set_net_customer_balance(frm, this_customer)
-    }
+    // } else {
+    //     _set_net_customer_balance(frm, this_customer)
+    // }
 }
 
 function _set_net_customer_balance(frm, customer) {

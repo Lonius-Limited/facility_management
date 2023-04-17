@@ -29,6 +29,9 @@ class PropertyCheckup(Document):
 			invoice_doc = frappe.get_doc("Sales Invoice", invoice_ref)
 			deposit_amount = invoice_doc.get("total") - invoice_doc.get("outstanding_amount")
 		return deposit_amount
+	def get_invalid_links(self):
+		invalid_links, cancelled_links = None, None
+		return invalid_links, cancelled_links
 
 def _post_rent_deposit_credit_note(self):
 	all_deposits = frappe.get_all(
