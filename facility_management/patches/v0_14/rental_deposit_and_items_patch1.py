@@ -488,10 +488,10 @@ def execute():
 	]
 	stock_settings = frappe.get_doc('Stock Settings')
 	stock_settings.item_naming_by = 'Item Code'
-	stock_settings.save(ignore_permissions=True, ignore_links=True)
+	stock_settings.save()
 	for item in items:
 		if not frappe.db.exists("Item", item.get('item_code'), cache=True):
-			frappe.get_doc(item).insert(ignore_permissions=True, ignore_links=True, ignore_if_duplicate=True)
+			frappe.get_doc(item).insert()
 	
 	#UPDATE VALUES IN FACILITY SETTINGS
 	frappe.db.set_value('Facility Management Settings', 'Facility Management Settings', 'rental_item', 'ITM-00001')
@@ -524,7 +524,7 @@ def execute():
 				"root_type": "Liability",
 				"tax_rate": 0.0,
 				"company": company.get('name')
-			}).insert(ignore_permissions=True, ignore_links=True)
+			}).insert()
 		else:
 			group_account = frappe.db.get_list("Account", filters={"account_name": "Customer Deposits", "company": company.get('name')}, fields=['name'])[0]
 		if not frappe.db.exists("Account", {"account_name": "Rent Security Deposit", "company": company.get('name')}):
@@ -545,7 +545,7 @@ def execute():
 				"root_type": "Liability",
 				"tax_rate": 0.0,
 				"company": company.get('name')
-			}).insert(ignore_permissions=True, ignore_links=True)
+			}).insert()
 		else:
 			account = frappe.db.get_list("Account", filters={"account_name": "Rent Security Deposit", "company": company.get('name')}, fields=['name'])[0]
 		for item in items:
@@ -560,7 +560,7 @@ def execute():
 						"parentfield": "item_defaults",
 						"parenttype": "Item"
 					}
-					frappe.get_doc(new_item_default).insert(ignore_permissions=True, ignore_links=True)
+					frappe.get_doc(new_item_default).insert()
 				else:
 					for defaults in frappe.db.get_list('Item Default', filters={'parent': item.get('name'), 'company': company.get('name')}, fields={'*'}):
 						frappe.db.set_value('Item Default', defaults.get('name'), 'income_account', account.get('name'))
